@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart | ZEVO — Built for What's Next</title>
+  <meta name="description" content="Review your ZEVO shopping cart, apply promo codes, and proceed to checkout.">
+  <script>(function(){var t=localStorage.getItem('zevo-theme');if(t==='light')document.documentElement.classList.remove('dark');else document.documentElement.classList.add('dark');})()</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            accent: '#FACC15', base: '#0A0A0A', surface: '#111111', elevated: '#1A1A1A',
+            success: '#22C55E', danger: '#EF4444', info: '#60A5FA',
+            'z-bg': 'var(--c-bg)', 'z-surface': 'var(--c-surface)', 'z-elevated': 'var(--c-elevated)',
+            'z-text': 'var(--c-text)', 'z-muted': 'var(--c-muted)',
+          },
+          fontFamily: { heading: ['Outfit','sans-serif'], body: ['Inter','sans-serif'], mono: ['JetBrains Mono','monospace'] },
+          maxWidth: { page: '1280px' }
+        }
+      }
+    }
+  </script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .border-subtle { border-color: var(--c-border); }
+    .qty-btn {
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--c-text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      transition: color 0.15s;
+      border: none;
+    }
+    .qty-btn:hover { color: #FACC15; }
+  </style>
+</head>
+<body class="bg-z-bg text-z-text font-body antialiased">
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <div id="nav-placeholder"></div>
+
+  <main id="main-content">
+    <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+      <!-- Page heading -->
+      <div class="flex items-center gap-3 mb-8">
+        <h1 class="font-heading font-black text-3xl text-z-text">Shopping Cart</h1>
+        <span id="badge-count" class="hidden font-mono text-xs bg-accent text-[#0A0A0A] rounded-full px-2.5 py-0.5 font-semibold"></span>
+      </div>
+
+      <div class="grid lg:grid-cols-[1fr_380px] gap-8 items-start">
+
+        <!-- LEFT: Cart items -->
+        <div>
+          <!-- Empty state -->
+          <div id="cart-empty" class="hidden text-center py-24">
+            <div class="w-24 h-24 rounded-full bg-z-elevated flex items-center justify-center mx-auto mb-5">
+              <i class="fa-solid fa-cart-shopping text-z-muted text-4xl"></i>
+            </div>
+            <p class="font-heading font-bold text-xl text-z-text mb-2">Your cart is empty</p>
+            <p class="font-body text-sm text-z-muted mb-6">Looks like you haven't added anything yet.</p>
+            <a href="shop.html" class="inline-flex items-center gap-2 bg-accent text-[#0A0A0A] font-body font-semibold px-6 py-3 rounded-xl text-sm hover:bg-yellow-300 transition-colors cursor-pointer">
+              <i class="fa-solid fa-bag-shopping"></i>
+              Continue Shopping
+            </a>
+          </div>
+
+          <!-- Items list -->
+          <div id="cart-items" class="space-y-4"></div>
+        </div>
+
+        <!-- RIGHT: Order summary -->
+        <div id="cart-summary" class="h-fit bg-z-surface border border-subtle rounded-2xl p-6 space-y-5 lg:sticky lg:top-20">
+
+          <h2 class="font-heading font-bold text-xl text-z-text">Order Summary</h2>
+
+          <!-- Coupon -->
+          <div>
+            <label for="coupon-input" class="font-mono text-xs text-z-muted uppercase tracking-wider block mb-2">Promo Code</label>
+            <div class="flex gap-2">
+              <input id="coupon-input" type="text" placeholder="ZEVO10" class="form-input flex-1" autocomplete="off" autocapitalize="characters" spellcheck="false">
+              <button id="apply-coupon" class="bg-accent text-[#0A0A0A] font-body font-semibold px-4 rounded-xl text-sm cursor-pointer hover:bg-yellow-300 transition-colors whitespace-nowrap flex-shrink-0">Apply</button>
+            </div>
+            <p id="coupon-msg" class="font-mono text-xs mt-1.5 hidden"></p>
+          </div>
+
+          <!-- Totals -->
+          <div class="space-y-3 text-sm">
+            <div class="flex justify-between text-z-muted font-body">
+              <span>Subtotal (<span id="item-count">0</span> items)</span>
+              <span class="font-mono text-z-text" id="subtotal">Rs. 0.00</span>
+            </div>
+            <div id="discount-row" class="hidden justify-between text-z-muted font-body">
+              <span>Discount (ZEVO10)</span>
+              <span class="font-mono text-[var(--c-success)]" id="discount-val">-Rs. 0.00</span>
+            </div>
+            <div class="flex justify-between text-z-muted font-body">
+              <span>Shipping</span>
+              <span class="font-mono" id="shipping-val">Free</span>
+            </div>
+            <div class="flex justify-between text-z-muted font-body">
+              <span>Tax (10%)</span>
+              <span class="font-mono text-z-text" id="tax-val">Rs. 0.00</span>
+            </div>
+            <div class="border-t border-subtle pt-3 flex justify-between font-heading font-bold text-z-text">
+              <span class="text-base">Total</span>
+              <span class="font-mono text-[var(--c-accent-text)] text-xl" id="total-val">Rs. 0.00</span>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <a href="checkout.html" id="checkout-cta" class="flex items-center justify-center gap-2 w-full bg-accent text-[#0A0A0A] font-body font-semibold py-3.5 rounded-xl text-center text-sm hover:bg-yellow-300 transition-colors cursor-pointer">
+            Proceed to Checkout
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+          <a href="shop.html" class="block text-center text-sm text-z-muted hover:text-z-text transition-colors cursor-pointer">Continue Shopping</a>
+
+          <div class="flex items-center justify-around pt-4 border-t border-subtle">
+            <div class="flex flex-col items-center gap-1.5">
+              <i class="fa-solid fa-shield-halved text-z-muted text-lg"></i>
+              <span class="font-mono text-[10px] text-z-muted uppercase tracking-wider">Secure</span>
+            </div>
+            <div class="flex flex-col items-center gap-1.5">
+              <i class="fa-solid fa-arrow-rotate-left text-z-muted text-lg"></i>
+              <span class="font-mono text-[10px] text-z-muted uppercase tracking-wider">Free Returns</span>
+            </div>
+            <div class="flex flex-col items-center gap-1.5">
+              <i class="fa-regular fa-clock text-z-muted text-lg"></i>
+              <span class="font-mono text-[10px] text-z-muted uppercase tracking-wider">2yr Warranty</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none" aria-live="polite"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/lenis.js"></script>
+    <script src="js/partials.js"></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      let appliedDiscount = 0;
+      let appliedCode = '';
+
+      function colorSwatch(hex) {
+        const needsBorder = ['#FFFFFF','#F5F5F5','#E8E8E8','#FAFAFA'].includes((hex||'').toUpperCase());
+        const borderStyle = needsBorder ? 'border:1px solid rgba(0,0,0,0.15);' : '';
+        return `<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${hex};${borderStyle};flex-shrink:0;"></span>`;
+      }
+
+      function renderItem(item) {
+        const lineTotal = item.price * item.qty;
+        const swatch = item.color ? colorSwatch(item.color) : '';
+        return `
+          <div class="flex gap-4 bg-z-surface border border-subtle rounded-2xl p-4 transition-all duration-200" data-key="${item.key}">
+            <a href="product.html?id=${item.id}" class="flex-shrink-0">
+              <img src="${item.img}" alt="${item.name}" class="w-20 h-24 rounded-xl object-cover bg-z-elevated" loading="lazy" width="80" height="96">
+            </a>
+            <div class="flex-1 min-w-0">
+              <a href="product.html?id=${item.id}" class="font-body font-semibold text-sm text-z-text line-clamp-1 hover:text-[var(--c-accent-text)] transition-colors block">
+                ${item.name}
+              </a>
+              <div class="flex items-center gap-1.5 font-mono text-xs text-z-muted mt-1">
+                ${swatch}
+                <span>${item.color || 'Default'}</span>
+              </div>
+              <div class="flex items-center gap-3 mt-3">
+                <div class="flex items-center gap-1 bg-z-elevated rounded-xl px-3 py-1.5 border border-subtle">
+                  <button class="cart-qty-dec qty-btn" data-key="${item.key}" aria-label="Decrease quantity">−</button>
+                  <span class="font-mono text-sm w-5 text-center text-z-text select-none">${item.qty}</span>
+                  <button class="cart-qty-inc qty-btn" data-key="${item.key}" aria-label="Increase quantity">+</button>
+                </div>
+                <button class="cart-remove flex items-center gap-1 text-z-muted hover:text-danger transition-colors cursor-pointer text-xs font-body" data-key="${item.key}" aria-label="Remove ${item.name}">
+                  <i class="fa-regular fa-trash-can text-xs pointer-events-none"></i>
+                  Remove
+                </button>
+              </div>
+            </div>
+            <div class="flex flex-col items-end gap-1 flex-shrink-0">
+              <span class="font-mono text-base text-[var(--c-accent-text)] font-medium">${formatPrice(lineTotal)}</span>
+              <span class="font-mono text-xs text-z-muted">${formatPrice(item.price)} each</span>
+            </div>
+          </div>`;
+      }
+
+      function updateSummary() {
+        const count    = Store.getCartCount();
+        const subtotal = Store.getCartTotal();
+        const shipping = Store.getShipping();
+        const tax      = Store.getTax(appliedDiscount);
+        const grand    = Store.getGrandTotal(appliedDiscount);
+
+        document.getElementById('item-count').textContent = count;
+        document.getElementById('subtotal').textContent   = formatPrice(subtotal);
+        document.getElementById('tax-val').textContent    = formatPrice(tax);
+        document.getElementById('total-val').textContent  = formatPrice(grand);
+
+        const shippingEl = document.getElementById('shipping-val');
+        if (shipping === 0) {
+          shippingEl.textContent = 'Free';
+          shippingEl.className = 'font-mono text-[var(--c-success)]';
+        } else {
+          shippingEl.textContent = formatPrice(shipping);
+          shippingEl.className = 'font-mono text-z-text';
+        }
+
+        const badgeEl = document.getElementById('badge-count');
+        if (count > 0) { badgeEl.textContent = count; badgeEl.classList.remove('hidden'); }
+        else badgeEl.classList.add('hidden');
+      }
+
+      function updateDiscount() {
+        const row = document.getElementById('discount-row');
+        const val = document.getElementById('discount-val');
+        if (appliedDiscount > 0) {
+          row.style.display = 'flex';
+          row.classList.remove('hidden');
+          val.textContent = '-' + formatPrice(appliedDiscount);
+        } else {
+          row.style.display = 'none';
+        }
+      }
+
+      function bindItemEvents() {
+        const itemsEl = document.getElementById('cart-items');
+        itemsEl.querySelectorAll('.cart-qty-dec').forEach(btn => {
+          btn.addEventListener('click', function () { Store.updateQty(this.dataset.key, -1); });
+        });
+        itemsEl.querySelectorAll('.cart-qty-inc').forEach(btn => {
+          btn.addEventListener('click', function () { Store.updateQty(this.dataset.key, +1); });
+        });
+        itemsEl.querySelectorAll('.cart-remove').forEach(btn => {
+          btn.addEventListener('click', function () {
+            const key = this.dataset.key;
+            const row = itemsEl.querySelector(`[data-key="${key}"]`);
+            if (row) { row.style.opacity = '0'; row.style.transform = 'translateX(16px)'; row.style.transition = 'opacity 0.2s, transform 0.2s'; }
+            setTimeout(() => Store.removeFromCart(key), 190);
+          });
+        });
+      }
+
+      function render() {
+        const cart    = Store.getCart();
+        const itemsEl = document.getElementById('cart-items');
+        const emptyEl = document.getElementById('cart-empty');
+        const ctaEl   = document.getElementById('checkout-cta');
+
+        if (cart.length === 0) {
+          emptyEl.classList.remove('hidden');
+          itemsEl.classList.add('hidden');
+          if (ctaEl) { ctaEl.setAttribute('href','#'); ctaEl.classList.add('opacity-40','pointer-events-none'); }
+        } else {
+          emptyEl.classList.add('hidden');
+          itemsEl.classList.remove('hidden');
+          itemsEl.innerHTML = cart.map(renderItem).join('');
+          bindItemEvents();
+          if (ctaEl) { ctaEl.setAttribute('href','checkout.html'); ctaEl.classList.remove('opacity-40','pointer-events-none'); }
+        }
+
+        // Recalculate discount if code still applied
+        if (appliedCode) appliedDiscount = Store.applyCoupon(appliedCode);
+        updateDiscount();
+        updateSummary();
+      }
+
+      // Coupon logic
+      document.getElementById('apply-coupon').addEventListener('click', function () {
+        const input  = document.getElementById('coupon-input');
+        const msgEl  = document.getElementById('coupon-msg');
+        const code   = input.value.trim();
+
+        if (!code) {
+          msgEl.textContent = 'Please enter a promo code.';
+          msgEl.className   = 'font-mono text-xs mt-1.5 text-[var(--c-error)]';
+          msgEl.classList.remove('hidden');
+          return;
+        }
+
+        const discount = Store.applyCoupon(code);
+        if (discount > 0) {
+          appliedDiscount = discount;
+          appliedCode     = code.toUpperCase();
+          msgEl.textContent = `"${appliedCode}" applied — ${formatPrice(discount)} off!`;
+          msgEl.className   = 'font-mono text-xs mt-1.5 text-[var(--c-success)]';
+          msgEl.classList.remove('hidden');
+          input.disabled = true;
+          this.textContent = 'Applied';
+          this.disabled = true;
+          this.classList.add('opacity-60');
+          updateDiscount();
+          updateSummary();
+        } else {
+          appliedDiscount = 0;
+          appliedCode     = '';
+          msgEl.textContent = 'Invalid code. Try ZEVO10 for 10% off.';
+          msgEl.className   = 'font-mono text-xs mt-1.5 text-[var(--c-error)]';
+          msgEl.classList.remove('hidden');
+          input.classList.add('error');
+        }
+      });
+
+      document.getElementById('coupon-input').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') document.getElementById('apply-coupon').click();
+      });
+
+      document.addEventListener('zevo:cart:updated', render);
+      render();
+    })();
+  </script>
+</body>
+</html>

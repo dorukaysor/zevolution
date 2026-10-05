@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed | ZEVO — Built for What's Next</title>
+  <meta name="description" content="Thank you for your ZEVO purchase! Your order is being processed.">
+  <script>(function(){var t=localStorage.getItem('zevo-theme');if(t==='light')document.documentElement.classList.remove('dark');else document.documentElement.classList.add('dark');})()</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            accent: '#FACC15', base: '#0A0A0A', surface: '#111111', elevated: '#1A1A1A',
+            success: '#22C55E', danger: '#EF4444', info: '#60A5FA',
+            'z-bg': 'var(--c-bg)', 'z-surface': 'var(--c-surface)', 'z-elevated': 'var(--c-elevated)',
+            'z-text': 'var(--c-text)', 'z-muted': 'var(--c-muted)',
+          },
+          fontFamily: { heading: ['Outfit','sans-serif'], body: ['Inter','sans-serif'], mono: ['JetBrains Mono','monospace'] },
+          maxWidth: { page: '1280px' }
+        }
+      }
+    }
+  </script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .border-subtle { border-color: var(--c-border); }
+  </style>
+</head>
+<body class="bg-z-bg text-z-text font-body antialiased">
+
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- Shared Nav -->
+  <div id="nav-placeholder"></div>
+
+  <main id="main-content">
+    <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="max-w-lg mx-auto text-center">
+        <!-- Success icon (large green checkmark circle) -->
+        <div class="w-20 h-20 rounded-full bg-success/15 flex items-center justify-center mx-auto mb-8">
+          <i class="fa-solid fa-check text-success text-2xl"></i>
+        </div>
+        <p class="font-mono text-xs text-z-muted uppercase tracking-widest mb-3">Order Confirmed</p>
+        <h1 class="font-heading font-black text-4xl text-z-text mb-3">Thank You!</h1>
+        <p class="font-body text-z-muted mb-8 leading-relaxed">Your order has been placed and is currently being processed.</p>
+        
+        <!-- Order details card -->
+        <div class="bg-z-surface border border-subtle rounded-2xl p-6 text-left mb-8">
+          <div class="grid grid-cols-2 gap-4 text-sm">
+            <div>
+              <p class="font-mono text-xs text-z-muted uppercase tracking-wider">Order Number</p>
+              <p class="font-mono font-medium text-[var(--c-accent-text)] mt-1" id="order-id">#XXXXXXXX</p>
+            </div>
+            <div>
+              <p class="font-mono text-xs text-z-muted uppercase tracking-wider">Estimated Delivery</p>
+              <p class="font-mono font-medium text-z-text mt-1" id="delivery-date">June 27, 2026</p>
+            </div>
+            <div>
+              <p class="font-mono text-xs text-z-muted uppercase tracking-wider">Email Confirmation</p>
+              <p class="font-body text-sm text-z-text mt-1" id="order-email">customer@email.com</p>
+            </div>
+            <div>
+              <p class="font-mono text-xs text-z-muted uppercase tracking-wider">Payment</p>
+              <p class="font-body text-sm text-z-text mt-1" id="order-payment">Card ending •••• 1234</p>
+            </div>
+          </div>
+          
+          <!-- Order items summary -->
+          <div id="order-items" class="mt-5 pt-5 border-t border-subtle space-y-3"></div>
+          
+          <!-- Total -->
+          <div id="order-total" class="mt-4 pt-4 border-t border-subtle flex justify-between">
+            <span class="font-body font-semibold text-z-text">Total</span>
+            <span class="font-mono font-bold text-[var(--c-accent-text)] text-lg" id="order-total-val">Rs. 0.00</span>
+          </div>
+        </div>
+        
+        <!-- CTAs -->
+        <div class="flex flex-col gap-3">
+          <a href="shop.html" class="block w-full bg-accent text-[#0A0A0A] font-body font-semibold py-3.5 rounded-xl text-center text-sm hover:bg-yellow-300 transition-colors cursor-pointer">Continue Shopping</a>
+          <a href="index.html" class="block text-center text-sm text-z-muted hover:text-z-text transition-colors">Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Shared Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/lenis.js"></script>
+    <script src="js/partials.js"></script>
+  
+  <script>
+    (function() {
+      const order = JSON.parse(sessionStorage.getItem('zevo_order') || 'null');
+      if (!order) {
+        window.location.href = 'shop.html';
+        return;
+      }
+
+      // Populate order values
+      document.getElementById('order-id').textContent = '#' + order.id;
+      document.getElementById('order-email').textContent = order.shipping.email;
+      document.getElementById('order-payment').textContent = 'Card ending •••• ' + order.payment.last4;
+      
+      // Calculate delivery date (today + 3 business days)
+      const delivery = new Date(order.date);
+      let daysAdded = 0;
+      while (daysAdded < 3) {
+        delivery.setDate(delivery.getDate() + 1);
+        if (delivery.getDay() !== 0 && delivery.getDay() !== 6) { // skip Sat/Sun
+          daysAdded++;
+        }
+      }
+      const options = { month: 'long', day: 'numeric', year: 'numeric' };
+      document.getElementById('delivery-date').textContent = delivery.toLocaleDateString('en-US', options);
+
+      // Render items
+      const itemsEl = document.getElementById('order-items');
+      if (itemsEl && order.items) {
+        itemsEl.innerHTML = order.items.map(item => `
+          <div class="flex justify-between items-center text-sm">
+            <div class="flex-1 min-w-0">
+              <span class="font-body text-z-text font-medium line-clamp-1">${item.name}</span>
+              <span class="font-mono text-xs text-z-muted">Qty: ${item.qty} | Color: <span class="capitalize">${item.color || 'Default'}</span></span>
+            </div>
+            <span class="font-mono text-z-text font-medium ml-4">${window.formatPrice(item.price * item.qty)}</span>
+          </div>`).join('');
+      }
+
+      // Render total
+      document.getElementById('order-total-val').textContent = window.formatPrice(order.total);
+    })();
+  </script>
+</body>
+</html>

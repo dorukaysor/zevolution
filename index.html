@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    ZEVO — Built for What's Next | Premium Electronics &amp; Gadgets
+  </title>
+  <meta name="description"
+    content="Shop the latest smartphones, laptops, audio, and wearables at ZEVO. Free shipping on orders over Rs. 99. 2-year warranty on all products." />
+  <meta name="keywords" content="electronics, gadgets, smartphones, laptops, audio, wearables, ZEVO" />
+  <meta name="author" content="ZEVO Technologies" />
+  <link rel="canonical" href="https://dorukaysor.github.com/zevo/web/" />
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function () {
+      var t = localStorage.getItem("zevo-theme");
+      if (t === "light") document.documentElement.classList.remove("dark");
+      else document.documentElement.classList.add("dark");
+    })();
+  </script>
+
+  <!-- Google Fonts: Outfit, Inter, & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            accent: "#FACC15",
+            base: "#0A0A0A",
+            surface: "#111111",
+            elevated: "#1A1A1A",
+            success: "#22C55E",
+            danger: "#EF4444",
+            info: "#60A5FA",
+            "z-bg": "var(--c-bg)",
+            "z-surface": "var(--c-surface)",
+            "z-elevated": "var(--c-elevated)",
+            "z-text": "var(--c-text)",
+            "z-muted": "var(--c-muted)",
+          },
+          fontFamily: {
+            heading: ["Outfit", "sans-serif"],
+            body: ["Inter", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"],
+          },
+          maxWidth: { page: "1280px" },
+        },
+      },
+    };
+  </script>
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/main.css" />
+
+  <style>
+    /* Border subtle shorthand (Tailwind v3 can't use CSS var in border-color directly) */
+    .border-subtle {
+      border-color: var(--c-border);
+    }
+  </style>
+</head>
+
+<body class="bg-z-bg text-z-text font-body antialiased">
+  <!-- Skip to content -->
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- ── Nav (injected) ──────────────────────────────────── -->
+  <div id="nav-placeholder"></div>
+
+  <main id="main-content">
+    <!-- ═══════════════════════════════════════════════════════
+       1. HERO SECTION
+  ═══════════════════════════════════════════════════════ -->
+    <section class="relative lg:min-h-[calc(100vh-64px)] flex items-center overflow-hidden grid-line-bg"
+      aria-label="Hero">
+      <!-- Radial glow -->
+      <div class="absolute inset-0 accent-glow animate-glow-pulse pointer-events-none"></div>
+
+      <div class="relative z-10 max-w-page mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 sm:py-20 lg:py-0">
+        <div class="grid lg:grid-cols-[55fr_45fr] gap-8 lg:gap-16 items-center lg:min-h-[calc(100vh-64px-48px)]">
+          <!-- Left: Text -->
+          <div class="flex flex-col gap-6 lg:gap-7 text-center lg:text-left pt-0">
+
+            <!-- Eyebrow -->
+
+            <!-- Headline -->
+            <h1 class="font-heading font-black leading-[0.95] tracking-[-0.035em] reveal reveal-delay-1"
+              style="font-size: clamp(2.8rem, 8vw, 4.5rem)">
+              <span class="block text-z-text">BUILT FOR</span>
+              <span class="block text-accent">WHAT'S</span>
+              <span class="block text-accent">NEXT.</span>
+            </h1>
+
+            <!-- Subtext -->
+            <p
+              class="font-body font-light text-[17px] text-z-muted max-w-[400px] self-center lg:self-start leading-relaxed reveal reveal-delay-2">
+              Discover the latest in consumer electronics — from flagship
+              smartphones to premium audio gear. Every product, built for
+              what's next.
+            </p>
+
+            <!-- CTAs -->
+            <div class="flex flex-col sm:flex-row gap-3 self-center lg:self-start reveal reveal-delay-3">
+              <a href="shop.html"
+                class="inline-flex items-center justify-center gap-2 bg-accent text-[#0A0A0A] font-body font-semibold px-7 py-3.5 rounded-xl hover:bg-yellow-300 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(250,204,21,0.3)] transition-all duration-200 cursor-pointer text-sm"
+                id="hero-cta-shop">
+                Shop Now
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+              </a>
+              <a href="shop.html?sort=sale"
+                class="inline-flex items-center justify-center gap-2 border border-subtle text-z-text font-body font-medium px-7 py-3.5 rounded-xl hover:border-accent hover:text-z-text transition-all duration-200 cursor-pointer text-sm"
+                id="hero-cta-deals">
+                View Deals
+              </a>
+            </div>
+
+            <!-- Stats row -->
+            <div
+              class="flex items-center gap-5 sm:gap-8 self-center lg:self-start reveal reveal-delay-4 flex-wrap justify-center lg:justify-start">
+              <div class="text-center lg:text-left">
+                <div class="font-heading font-bold text-xl text-z-text">
+                  4.9★
+                </div>
+                <div class="font-mono text-[11px] text-z-muted uppercase tracking-wider mt-0.5">
+                  Rating
+                </div>
+              </div>
+              <div class="w-px h-8 bg-z-elevated hidden sm:block"></div>
+              <div class="text-center lg:text-left">
+                <div class="font-heading font-bold text-xl text-z-text">
+                  48hr
+                </div>
+                <div class="font-mono text-[11px] text-z-muted uppercase tracking-wider mt-0.5">
+                  Delivery
+                </div>
+              </div>
+              <div class="w-px h-8 bg-z-elevated hidden sm:block"></div>
+              <div class="text-center lg:text-left">
+                <div class="font-heading font-bold text-xl text-z-text">
+                  2yr
+                </div>
+                <div class="font-mono text-[11px] text-z-muted uppercase tracking-wider mt-0.5">
+                  Warranty
+                </div>
+              </div>
+              <div class="w-px h-8 bg-z-elevated hidden sm:block"></div>
+              <div class="text-center lg:text-left">
+                <div class="font-heading font-bold text-xl text-z-text">
+                  Free
+                </div>
+                <div class="font-mono text-[11px] text-z-muted uppercase tracking-wider mt-0.5">
+                  Returns
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Floating product card (lg+) -->
+          <div class="relative hidden lg:flex items-center justify-center" aria-hidden="true">
+            <!-- Main card -->
+            <div class="hero-card relative w-[340px] h-[440px] flex flex-col p-6 animate-float overflow-hidden">
+              <div class="absolute inset-0 rounded-[24px] bg-z-elevated opacity-100 -z-10"></div>
+              <!-- Image area -->
+              <div class="flex-1 rounded-xl overflow-hidden bg-z-surface flex items-center justify-center">
+                <img src="https://picsum.photos/seed/zevo-hero/280/300" alt="Nexus Ultra Pro flagship smartphone"
+                  class="w-full h-full object-cover opacity-90" width="280" height="300" loading="eager" />
+              </div>
+              <!-- Product info -->
+              <div class="mt-4">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="font-mono text-[10px] text-z-muted uppercase tracking-[0.1em]">Smartphones</span>
+                  <span
+                    class="bg-accent/15 text-[var(--c-accent-text)] border border-accent/30 font-mono text-[10px] uppercase tracking-[0.06em] rounded-full px-2 py-0.5">New</span>
+                </div>
+                <div class="font-heading font-bold text-xl text-z-text">
+                  Nexus Ultra Pro
+                </div>
+                <div class="flex items-center gap-3 mt-2">
+                  <span class="font-mono text-xl text-[var(--c-accent-text)]">Rs. 1,099.00</span>
+                  <span class="font-mono text-sm text-z-muted line-through">Rs. 1,299.00</span>
+                  <span class="font-mono text-[10px] text-[var(--c-success)] bg-success/10 rounded-full px-2 py-0.5">15%
+                    OFF</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating chip — Rating -->
+            <div
+              class="glass-card absolute top-12 -left-6 rounded-2xl px-3 py-2.5 flex items-center gap-2.5 shadow-2xl animate-float"
+              style="animation-delay: 0.5s">
+              <div class="w-7 h-7 bg-accent/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-star text-accent"></i>
+              </div>
+              <div>
+                <div class="font-mono text-xs font-medium text-z-text">
+                  4.9★ Rating
+                </div>
+                <div class="font-mono text-[10px] text-z-muted">
+                  48K+ reviews
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating chip — Delivery -->
+            <div
+              class="glass-card absolute bottom-16 -right-6 rounded-2xl px-3 py-2.5 flex items-center gap-2.5 shadow-2xl animate-float"
+              style="animation-delay: 1.2s">
+              <div class="w-7 h-7 bg-success/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-truck text-success"></i>
+              </div>
+              <div>
+                <div class="font-mono text-xs font-medium text-z-text">
+                  48hr Delivery
+                </div>
+                <div class="font-mono text-[10px] text-z-muted">
+                  Free over Rs. 99
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating chip — Warranty -->
+            <div
+              class="glass-card absolute top-1/2 -right-4 -translate-y-16 rounded-2xl px-3 py-2.5 flex items-center gap-2.5 shadow-2xl animate-float"
+              style="animation-delay: 0.8s">
+              <div class="w-7 h-7 bg-info/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-shield-halved text-info"></i>
+              </div>
+              <div>
+                <div class="font-mono text-xs font-medium text-z-text">
+                  2yr Warranty
+                </div>
+                <div class="font-mono text-[10px] text-z-muted">
+                  All products
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /right col -->
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-40"
+        aria-hidden="true">
+        <div class="font-mono text-[10px] text-z-muted uppercase tracking-widest">
+          Scroll
+        </div>
+        <i class="fa-solid fa-chevron-down text-z-muted animate-bounce text-xs"></i>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+       2. STATS BAR
+  ═══════════════════════════════════════════════════════ -->
+    <section class="border-y bg-z-surface" style="border-color: var(--c-border)" aria-label="Trust stats">
+      <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 lg:grid-cols-4 stats-grid">
+          <div class="flex flex-col items-center justify-center py-8 px-4 gap-1 reveal">
+            <div class="font-heading font-black text-2xl text-z-text">
+              2.4M+
+            </div>
+            <div class="font-mono text-xs text-z-muted uppercase tracking-wider">
+              Products Sold
+            </div>
+          </div>
+          <div class="flex flex-col items-center justify-center py-8 px-4 gap-1 reveal reveal-delay-1">
+            <div class="font-heading font-black text-2xl text-z-text">
+              48hr
+            </div>
+            <div class="font-mono text-xs text-z-muted uppercase tracking-wider">
+              Delivery
+            </div>
+          </div>
+          <div class="flex flex-col items-center justify-center py-8 px-4 gap-1 reveal reveal-delay-2">
+            <div class="font-heading font-black text-2xl text-z-text">
+              100%
+            </div>
+            <div class="font-mono text-xs text-z-muted uppercase tracking-wider">
+              Secure Checkout
+            </div>
+          </div>
+          <div class="flex flex-col items-center justify-center py-8 px-4 gap-1 reveal reveal-delay-3">
+            <div class="font-heading font-black text-2xl text-z-text">
+              30-Day
+            </div>
+            <div class="font-mono text-xs text-z-muted uppercase tracking-wider">
+              Free Returns
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+       3. CATEGORIES
+  ═══════════════════════════════════════════════════════ -->
+    <section class="py-20 lg:py-24" aria-labelledby="categories-heading">
+      <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+          <div>
+            <p class="font-mono text-xs text-z-muted uppercase tracking-[0.12em] mb-2 reveal">
+              Browse by Category
+            </p>
+            <h2 id="categories-heading"
+              class="font-heading font-black text-3xl lg:text-4xl text-z-text reveal reveal-delay-1">
+              Shop by Type
+            </h2>
+          </div>
+          <a href="shop.html"
+            class="font-body text-sm text-[var(--c-accent-text)] hover:underline underline-offset-4 transition-colors self-start sm:self-auto reveal reveal-delay-2">View
+            all products →</a>
+        </div>
+
+        <!-- Category cards -->
+        <div id="category-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+       4. FEATURED PRODUCTS
+  ═══════════════════════════════════════════════════════ -->
+    <section class="py-20 lg:py-24 bg-z-surface border-y" style="border-color: var(--c-border)"
+      aria-labelledby="featured-heading">
+      <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+          <div>
+            <p class="font-mono text-xs text-z-muted uppercase tracking-[0.12em] mb-2 reveal">
+              Just Dropped
+            </p>
+            <h2 id="featured-heading"
+              class="font-heading font-black text-3xl lg:text-4xl text-z-text reveal reveal-delay-1">
+              New Arrivals
+            </h2>
+          </div>
+          <a href="shop.html?tag=new"
+            class="font-body text-sm text-[var(--c-accent-text)] hover:underline underline-offset-4 transition-colors self-start sm:self-auto reveal reveal-delay-2">See
+            all new →</a>
+        </div>
+
+        <div id="featured-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+       5. FLASH DEALS
+  ═══════════════════════════════════════════════════════ -->
+    <section class="py-20 lg:py-24" aria-labelledby="deals-heading">
+      <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header with countdown -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10">
+          <div>
+            <p class="font-mono text-xs text-z-muted uppercase tracking-[0.12em] mb-2 reveal">
+              Limited Time
+            </p>
+            <h2 id="deals-heading"
+              class="font-heading font-black text-3xl lg:text-4xl text-z-text reveal reveal-delay-1">
+              Flash Deals
+              <span class="inline-block w-2 h-2 bg-danger rounded-full ml-2 animate-pulse-dot"></span>
+            </h2>
+          </div>
+          <!-- Countdown timer -->
+          <div class="flex items-center gap-2 reveal reveal-delay-2" aria-label="Sale ends in">
+            <div class="text-center">
+              <div
+                class="font-mono font-medium text-2xl text-z-text bg-z-surface border border-subtle rounded-xl w-16 h-14 flex items-center justify-center"
+                id="count-h">
+                00
+              </div>
+              <div class="font-mono text-[10px] text-z-muted mt-1 uppercase">
+                Hours
+              </div>
+            </div>
+            <div class="font-mono text-xl text-z-muted pb-4">:</div>
+            <div class="text-center">
+              <div
+                class="font-mono font-medium text-2xl text-z-text bg-z-surface border border-subtle rounded-xl w-16 h-14 flex items-center justify-center"
+                id="count-m">
+                00
+              </div>
+              <div class="font-mono text-[10px] text-z-muted mt-1 uppercase">
+                Mins
+              </div>
+            </div>
+            <div class="font-mono text-xl text-z-muted pb-4">:</div>
+            <div class="text-center">
+              <div
+                class="font-mono font-medium text-2xl text-z-text bg-z-surface border border-subtle rounded-xl w-16 h-14 flex items-center justify-center"
+                id="count-s">
+                00
+              </div>
+              <div class="font-mono text-[10px] text-z-muted mt-1 uppercase">
+                Secs
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="deals-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+       6. TRENDING — Horizontal scroll strip
+  ═══════════════════════════════════════════════════════ -->
+    <section class="py-20 lg:py-24 bg-z-surface border-y" style="border-color: var(--c-border)"
+      aria-labelledby="trending-heading">
+      <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-end justify-between mb-8">
+          <div>
+            <p class="font-mono text-xs text-z-muted uppercase tracking-[0.12em] mb-2 reveal">
+              What's Hot
+            </p>
+            <h2 id="trending-heading"
+              class="font-heading font-black text-3xl lg:text-4xl text-z-text reveal reveal-delay-1">
+              Trending Now
+            </h2>
+          </div>
+          <div class="flex items-center gap-2 reveal reveal-delay-2">
+            <button id="trend-prev"
+              class="w-9 h-9 flex items-center justify-center rounded-xl border border-subtle bg-z-elevated hover:border-accent transition-colors cursor-pointer"
+              aria-label="Scroll left">
+              <i class="fa-solid fa-chevron-left text-z-muted text-xs"></i>
+            </button>
+            <button id="trend-next"
+              class="w-9 h-9 flex items-center justify-center rounded-xl border border-subtle bg-z-elevated hover:border-accent transition-colors cursor-pointer"
+              aria-label="Scroll right">
+              <i class="fa-solid fa-chevron-right text-z-muted text-xs"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Scroll track -->
+        <div id="trend-track" class="scroll-track scrollbar-hide" role="list" aria-label="Trending products">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+       7. EDITORIAL FEATURE
+  ═══════════════════════════════════════════════════════ -->
+    <section class="py-20 lg:py-24" aria-labelledby="editorial-heading">
+      <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="editorial-card" class="reveal">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+       8. TESTIMONIALS
+  ═══════════════════════════════════════════════════════ -->
+    <section class="py-20 lg:py-24 bg-z-surface border-y" style="border-color: var(--c-border)"
+      aria-labelledby="reviews-heading">
+      <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <p class="font-mono text-xs text-z-muted uppercase tracking-[0.12em] mb-2 reveal">
+            What People Say
+          </p>
+          <h2 id="reviews-heading"
+            class="font-heading font-black text-3xl lg:text-4xl text-z-text reveal reveal-delay-1">
+            Trusted by Thousands
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <article class="glass-card rounded-2xl p-6 flex flex-col gap-4 reveal">
+            <div class="flex text-accent text-sm">★★★★★</div>
+            <blockquote class="font-body text-sm text-z-muted leading-relaxed flex-1">
+              "The Apex Book Pro is the most capable laptop I've ever owned.
+              Battery life is honestly insane — I went 3 days without plugging
+              in during a work trip."
+            </blockquote>
+            <div class="flex items-center gap-3 pt-2 border-t border-subtle">
+              <img src="https://picsum.photos/seed/reviewer-1/48/48" alt="Alex Chen"
+                class="w-10 h-10 rounded-full object-cover flex-shrink-0" loading="lazy" width="48" height="48" />
+              <div>
+                <div class="font-body font-semibold text-sm text-z-text">
+                  Alex Chen
+                </div>
+                <div class="font-mono text-xs text-z-muted">
+                  Software Engineer · San Francisco
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="glass-card rounded-2xl p-6 flex flex-col gap-4 reveal reveal-delay-2">
+            <div class="flex text-accent text-sm">★★★★★</div>
+            <blockquote class="font-body text-sm text-z-muted leading-relaxed flex-1">
+              "Pulse Buds Pro genuinely cancelled out the entire subway. I can
+              hear my music with perfect clarity even on my morning commute.
+              Worth every cent."
+            </blockquote>
+            <div class="flex items-center gap-3 pt-2 border-t border-subtle">
+              <img src="https://picsum.photos/seed/reviewer-2/48/48" alt="Maya Rodriguez"
+                class="w-10 h-10 rounded-full object-cover flex-shrink-0" loading="lazy" width="48" height="48" />
+              <div>
+                <div class="font-body font-semibold text-sm text-z-text">
+                  Maya Rodriguez
+                </div>
+                <div class="font-mono text-xs text-z-muted">
+                  Product Designer · New York
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="glass-card rounded-2xl p-6 flex flex-col gap-4 reveal reveal-delay-4">
+            <div class="flex text-accent text-sm">★★★★★</div>
+            <blockquote class="font-body text-sm text-z-muted leading-relaxed flex-1">
+              "ZWatch Ultra tracked a full marathon and still had 40% battery.
+              The titanium case looks stunning, feels indestructible. ZEVO has
+              a customer for life."
+            </blockquote>
+            <div class="flex items-center gap-3 pt-2 border-t border-subtle">
+              <img src="https://picsum.photos/seed/reviewer-3/48/48" alt="Jordan Kim"
+                class="w-10 h-10 rounded-full object-cover flex-shrink-0" loading="lazy" width="48" height="48" />
+              <div>
+                <div class="font-body font-semibold text-sm text-z-text">
+                  Jordan Kim
+                </div>
+                <div class="font-mono text-xs text-z-muted">
+                  Marathon Runner · Chicago
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+       9. NEWSLETTER
+  ═══════════════════════════════════════════════════════ -->
+    <section class="py-20 lg:py-24" aria-labelledby="newsletter-heading">
+      <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-z-surface border border-subtle rounded-3xl p-8 sm:p-12 lg:p-16 relative overflow-hidden reveal">
+          <!-- BG accent -->
+          <div
+            class="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/4"
+            aria-hidden="true"></div>
+
+          <div class="relative max-w-xl mx-auto text-center">
+            <p class="font-mono text-xs text-z-muted uppercase tracking-[0.12em] mb-3">
+              Early Access
+            </p>
+            <h2 id="newsletter-heading" class="font-heading font-black text-3xl lg:text-4xl text-z-text mb-3">
+              Get Drop Alerts First
+            </h2>
+            <p class="font-body text-z-muted mb-8">
+              Be the first to know about new arrivals, flash deals, and
+              exclusive ZEVO launches. No spam — just the good stuff.
+            </p>
+
+            <!-- Form -->
+            <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" novalidate>
+              <label for="newsletter-email" class="sr-only">Email address</label>
+              <input id="newsletter-email" type="email" placeholder="Enter your email address" required
+                class="flex-1 px-4 py-3.5 bg-z-elevated border border-subtle rounded-xl text-z-text placeholder-z-muted text-sm focus:outline-none focus:border-accent transition-colors" />
+              <button type="submit" id="newsletter-submit"
+                class="flex-shrink-0 bg-accent text-[#0A0A0A] font-body font-semibold px-7 py-3.5 rounded-xl text-sm hover:bg-yellow-300 transition-colors cursor-pointer whitespace-nowrap">
+                Subscribe
+              </button>
+            </form>
+
+            <!-- Success state (hidden) -->
+            <div id="newsletter-success" class="hidden mt-4 flex flex-col items-center gap-2">
+              <div class="w-10 h-10 bg-success/15 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-check text-success"></i>
+              </div>
+              <p class="font-body font-semibold text-z-text">
+                You're in! Welcome to ZEVO.
+              </p>
+              <p class="font-body text-sm text-z-muted">
+                Check your inbox — your first exclusive deal is on its way.
+              </p>
+            </div>
+
+            <p class="font-mono text-xs text-z-muted mt-4">
+              No spam. Unsubscribe anytime.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── Footer (injected) ──────────────────────────────── -->
+  <div id="footer-placeholder"></div>
+
+  <!-- ── Toast container ───────────────────────────────── -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none"
+    aria-live="polite" aria-label="Notifications">
+    <!-- Toasts injected by store.js -->
+  </div>
+
+  <!-- ── Scripts ───────────────────────────────────────── -->
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/lenis.js"></script>
+  <script src="js/partials.js"></script>
+
+  <script>
+    /* ── PAGE: HOME ─────────────────────────────────────── */
+    document.addEventListener("DOMContentLoaded", function () {
+      /* ── Render category cards ──────────────────────── */
+      const catGrid = document.getElementById("category-grid");
+      if (catGrid) {
+        catGrid.innerHTML = ZEVO_CATEGORIES.map(
+          (cat, i) => `
+        <a href="shop.html?cat=${cat.slug}"
+          class="category-card group flex flex-col items-center justify-center gap-3 p-6 bg-z-surface border border-subtle rounded-2xl
+                 hover:-translate-y-1 hover:border-accent hover:shadow-[0_8px_32px_rgba(250,204,21,0.06)]
+                 cursor-pointer reveal${i ? " reveal-delay-" + Math.min(i, 5) : ""}"
+          aria-label="Shop ${cat.label}">
+          <div class="w-12 h-12 flex items-center justify-center text-3xl text-z-muted group-hover:text-[var(--c-accent-text)] transition-colors" aria-hidden="true">
+            ${cat.icon}
+          </div>
+          <div class="text-center">
+            <div class="font-body font-semibold text-sm text-z-text">${cat.label}</div>
+            <div class="font-mono text-xs text-z-muted mt-0.5">${cat.count} products</div>
+          </div>
+        </a>`,
+        ).join("");
+      }
+
+      /* ── Render featured products (tagged 'New') ────── */
+      const featuredGrid = document.getElementById("featured-grid");
+      if (featuredGrid) {
+        const newProducts = ZEVO_PRODUCTS.filter(
+          (p) => p.tag === "New",
+        ).slice(0, 4);
+        featuredGrid.innerHTML = newProducts
+          .map((p, i) => buildProductCard(p, { delay: i + 1 }))
+          .join("");
+        // Re-observe reveals
+        if (window._revealObserver) {
+          featuredGrid
+            .querySelectorAll(".reveal")
+            .forEach((el) => window._revealObserver.observe(el));
+        }
+      }
+
+      /* ── Flash deals (products tagged 'Sale') ───────── */
+      const dealsGrid = document.getElementById("deals-grid");
+      if (dealsGrid) {
+        const saleProducts = ZEVO_PRODUCTS.filter(
+          (p) => p.tag === "Sale",
+        ).slice(0, 4);
+        dealsGrid.innerHTML = saleProducts
+          .map((p, i) => {
+            const pct = discountPct(p.price, p.oldPrice);
+            const sold = Math.floor(Math.random() * 40) + 40; // 40-80% sold
+            return `
+          <article class="group bg-z-surface border border-subtle rounded-2xl p-4 flex flex-col gap-3 hover:border-danger/40 transition-colors reveal${i ? " reveal-delay-" + i : ""}" aria-label="${p.name}">
+            <div class="relative overflow-hidden rounded-xl" style="aspect-ratio:4/3;background:var(--c-elevated)">
+              <img src="${p.images[0]}" alt="${p.name}" class="w-full h-full object-cover img-scale" loading="lazy" width="400" height="300">
+              <span class="absolute top-2 left-2 bg-danger/15 text-danger border border-danger/30 font-mono text-[10px] uppercase tracking-[0.06em] rounded-full px-2.5 py-0.5">
+                ${pct}% OFF
+              </span>
+            </div>
+            <div class="flex-1">
+              <div class="font-mono text-[10px] text-z-muted uppercase tracking-[0.1em] mb-1">${p.categoryLabel}</div>
+              <h3 class="font-body font-medium text-sm text-z-text mb-2 line-clamp-1">
+                <a href="product.html?id=${p.id}" class="hover:text-[var(--c-accent-text)] transition-colors">${p.name}</a>
+              </h3>
+              <div class="flex items-center gap-2 mb-3">
+                <span class="font-mono text-base text-[var(--c-accent-text)]">${formatPrice(p.price)}</span>
+                <span class="font-mono text-xs text-z-muted line-through">${formatPrice(p.oldPrice)}</span>
+              </div>
+              <!-- Progress bar -->
+              <div class="space-y-1.5">
+                <div class="flex justify-between font-mono text-[10px] text-z-muted">
+                  <span>${sold}% sold</span>
+                  <span>${100 - sold} left</span>
+                </div>
+                <div class="w-full bg-z-elevated rounded-full h-1.5 overflow-hidden">
+                  <div class="progress-bar h-full bg-danger rounded-full" style="--progress-target:${sold}%" aria-label="${sold}% sold" role="progressbar" aria-valuenow="${sold}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+            <button class="add-to-cart w-full bg-accent text-[#0A0A0A] font-body font-semibold py-2.5 rounded-xl text-sm hover:bg-yellow-300 transition-colors cursor-pointer" data-id="${p.id}">
+              Add to Cart
+            </button>
+          </article>`;
+          })
+          .join("");
+      }
+
+      /* ── Countdown timer ────────────────────────────── */
+      function updateCountdown() {
+        // Flash sale ends at next midnight
+        const now = new Date();
+        const end = new Date(now);
+        end.setHours(23, 59, 59, 999);
+        const diff = end - now;
+
+        const h = String(Math.floor(diff / 3600000)).padStart(2, "0");
+        const m = String(Math.floor((diff % 3600000) / 60000)).padStart(
+          2,
+          "0",
+        );
+        const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
+
+        const hEl = document.getElementById("count-h");
+        const mEl = document.getElementById("count-m");
+        const sEl = document.getElementById("count-s");
+
+        if (sEl && sEl.textContent !== s) {
+          sEl.classList.remove("digit-flip");
+          void sEl.offsetWidth; // reflow
+          sEl.classList.add("digit-flip");
+        }
+        if (hEl) hEl.textContent = h;
+        if (mEl) mEl.textContent = m;
+        if (sEl) sEl.textContent = s;
+      }
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      /* ── Trending strip (6 products) ────────────────── */
+      const trendTrack = document.getElementById("trend-track");
+      if (trendTrack) {
+        // Mix of popular products
+        const trending = [...ZEVO_PRODUCTS]
+          .sort((a, b) => b.reviews - a.reviews)
+          .slice(0, 6);
+        trendTrack.innerHTML = trending
+          .map((p) => {
+            const pct = discountPct(p.price, p.oldPrice);
+            return `
+          <article class="w-44 sm:w-52 flex-shrink-0 group cursor-pointer" role="listitem">
+            <a href="product.html?id=${p.id}" class="block">
+              <div class="rounded-xl overflow-hidden mb-3" style="aspect-ratio:1;background:var(--c-elevated)">
+                <img src="${p.images[0]}" alt="${p.name}" class="w-full h-full object-cover img-scale" loading="lazy" width="208" height="208">
+              </div>
+              <div class="font-mono text-[10px] text-z-muted uppercase tracking-[0.1em] mb-0.5">${p.categoryLabel}</div>
+              <div class="font-body font-medium text-sm text-z-text line-clamp-1 mb-1">${p.name}</div>
+              <div class="flex items-center gap-1.5">
+                <span class="font-mono text-sm text-[var(--c-accent-text)]">${formatPrice(p.price)}</span>
+                ${pct ? `<span class="font-mono text-[10px] text-[var(--c-success)]">−${pct}%</span>` : ""}
+              </div>
+            </a>
+          </article>`;
+          })
+          .join("");
+
+        // Scroll nav buttons
+        document
+          .getElementById("trend-prev")
+          ?.addEventListener("click", () => {
+            trendTrack.scrollBy({ left: -220, behavior: "smooth" });
+          });
+        document
+          .getElementById("trend-next")
+          ?.addEventListener("click", () => {
+            trendTrack.scrollBy({ left: 220, behavior: "smooth" });
+          });
+      }
+
+      /* ── Editorial feature (flagship product) ───────── */
+      const editorial = document.getElementById("editorial-card");
+      if (editorial) {
+        const flagship = ZEVO_PRODUCTS.find(
+          (p) => p.id === "nexus-ultra-pro",
+        );
+        if (flagship) {
+          editorial.innerHTML = `
+          <div class="grid lg:grid-cols-2 gap-0 bg-z-surface border border-subtle rounded-3xl overflow-hidden">
+            <!-- Image -->
+            <div class="relative overflow-hidden" style="aspect-ratio:4/3;min-height:280px">
+              <img src="${flagship.images[0]}" alt="${flagship.name}" class="w-full h-full object-cover img-scale" loading="lazy" width="640" height="480">
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent to-z-surface/40 hidden lg:block"></div>
+              <div class="absolute top-4 left-4">
+                <span class="glass-card font-mono text-xs text-z-text uppercase tracking-widest px-3 py-1.5 rounded-full">Flagship 2025</span>
+              </div>
+            </div>
+            <!-- Info -->
+            <div class="p-8 lg:p-12 flex flex-col justify-center">
+              <div class="font-mono text-xs text-z-muted uppercase tracking-[0.12em] mb-3">${flagship.categoryLabel}</div>
+              <h2 class="font-heading font-black text-3xl lg:text-4xl text-z-text mb-4">${flagship.name}</h2>
+              <p class="font-body text-z-muted leading-relaxed mb-6 text-sm">${flagship.description}</p>
+              <!-- Specs grid -->
+              <div class="grid grid-cols-2 gap-x-6 gap-y-3 mb-8">
+                ${Object.entries(flagship.specs)
+              .slice(0, 4)
+              .map(
+                ([k, v]) => `
+                  <div>
+                    <div class="font-mono text-[10px] text-z-muted uppercase tracking-wider mb-0.5">${k}</div>
+                    <div class="font-body text-sm text-z-text font-medium">${v}</div>
+                  </div>`,
+              )
+              .join("")}
+              </div>
+              <div class="flex items-center gap-3 mb-6">
+                <span class="font-mono text-3xl text-[var(--c-accent-text)]">${formatPrice(flagship.price)}</span>
+                <span class="font-mono text-lg text-z-muted line-through">${formatPrice(flagship.oldPrice)}</span>
+                <span class="font-mono text-xs text-[var(--c-success)] bg-success/10 rounded-full px-2 py-1">${discountPct(flagship.price, flagship.oldPrice)}% OFF</span>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <a href="product.html?id=${flagship.id}" class="inline-flex items-center justify-center gap-2 bg-accent text-[#0A0A0A] font-body font-semibold px-6 py-3 rounded-xl text-sm hover:bg-yellow-300 transition-colors cursor-pointer">
+                  View Details
+                  <i class="fa-solid fa-chevron-right text-xs"></i>
+                </a>
+                <button class="add-to-cart inline-flex items-center justify-center gap-2 border border-subtle text-z-text font-body font-medium px-6 py-3 rounded-xl text-sm hover:border-accent transition-colors cursor-pointer" data-id="${flagship.id}">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>`;
+        }
+      }
+
+      /* ── Newsletter form ────────────────────────────── */
+      document
+        .getElementById("newsletter-form")
+        ?.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const email = document
+            .getElementById("newsletter-email")
+            .value.trim();
+          if (!email) return;
+          this.classList.add("hidden");
+          document
+            .getElementById("newsletter-success")
+            .classList.remove("hidden");
+          document.getElementById("newsletter-success").classList.add("flex");
+          Toast.show({
+            title: "Subscribed!",
+            message: "Welcome to ZEVO. Great deals incoming.",
+            type: "success",
+          });
+        });
+
+      /* ── Re-init scroll reveal for JS-rendered content ── */
+      setTimeout(() => {
+        if ("IntersectionObserver" in window) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("revealed");
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
+          );
+          window._revealObserver = observer;
+          document
+            .querySelectorAll(".reveal:not(.revealed)")
+            .forEach((el) => observer.observe(el));
+        } else {
+          document
+            .querySelectorAll(".reveal")
+            .forEach((el) => el.classList.add("revealed"));
+        }
+
+        // Card tilt for newly rendered cards
+        document.querySelectorAll(".card-tilt").forEach((card) => {
+          card.addEventListener("mousemove", function (e) {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const rotX = ((y - rect.height / 2) / rect.height) * -5;
+            const rotY = ((x - rect.width / 2) / rect.width) * 5;
+            card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
+          });
+          card.addEventListener("mouseleave", () => {
+            card.style.transform = "";
+          });
+        });
+
+        // Progress bars
+        if ("IntersectionObserver" in window) {
+          const pObs = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("animated");
+                  pObs.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.5 },
+          );
+          document
+            .querySelectorAll(".progress-bar")
+            .forEach((el) => pObs.observe(el));
+        }
+      }, 100);
+    }); // end DOMContentLoaded
+  </script>
+</body>
+
+</html>

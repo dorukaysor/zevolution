@@ -1,0 +1,52 @@
+<div id="zevo-preloader" class="fixed inset-0 bg-[#0A0A0A] z-[99999] flex flex-col items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.85,0,0.15,1)]">
+  <div class="flex flex-col items-center gap-6">
+    <!-- Brand Logo Animation -->
+    <div class="font-heading font-black text-5xl tracking-widest text-white flex items-center justify-center gap-1 select-none animate-logo-intro">
+      <span>Z</span>
+      <span>E</span>
+      <span>V</span>
+      <span class="text-accent">O</span>
+    </div>
+    
+    <!-- Minimal Loader Line -->
+    <div class="w-24 h-[2px] bg-white/10 rounded-full overflow-hidden relative">
+      <div class="absolute inset-y-0 left-0 bg-accent rounded-full animate-preloader-bar"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Preloader Keyframes */
+  .animate-logo-intro {
+    animation: logo-expand 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  @keyframes logo-expand {
+    0% {
+      opacity: 0;
+      letter-spacing: -0.2em;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      letter-spacing: 0.15em;
+      transform: scale(1);
+    }
+  }
+
+  .animate-preloader-bar {
+    width: 0%;
+    animation: load-progress 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  @keyframes load-progress {
+    0% { width: 0%; left: 0; }
+    50% { width: 60%; }
+    100% { width: 100%; }
+  }
+
+  /* Exit transition class (removed blur to fix lag) */
+  #zevo-preloader.preloader-exit {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.02) translateY(-20px);
+  }
+</style>

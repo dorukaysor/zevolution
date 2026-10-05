@@ -1,0 +1,297 @@
+<!-- ═══════════════════════════════════════════════════════════
+     ZEVO — nav.html (shared partial)
+     Injected into #nav-placeholder on every page via partials.js
+═══════════════════════════════════════════════════════════ -->
+
+<!-- Announcement bar here -->
+<div
+  class="bg-accent text-[#0A0A0A] overflow-hidden h-9 flex items-center"
+  role="banner"
+  aria-label="Promotions"
+>
+  <div class="ticker-wrap w-full">
+    <div
+      class="animate-ticker inline-flex whitespace-nowrap"
+      aria-hidden="true"
+    >
+      <!-- Two copies for seamless loop -->
+      <span
+        class="inline-flex items-center gap-10 px-6 font-mono text-[11px] font-medium tracking-wide"
+      >
+        <span>Free shipping on orders over Rs. 99</span>
+        <span class="opacity-40">·</span>
+        <span>New arrivals every week</span>
+        <span class="opacity-40">·</span>
+        <span
+          >Use code <strong class="font-bold">ZEVO10</strong> for 10% off</span
+        >
+        <span class="opacity-40">·</span>
+        <span>Free shipping on orders over Rs. 99</span>
+        <span class="opacity-40">·</span>
+        <span>New arrivals every week</span>
+        <span class="opacity-40">·</span>
+        <span
+          >Use code <strong class="font-bold">ZEVO10</strong> for 10% off</span
+        >
+        <span class="opacity-40">·</span>
+        <span>Free shipping on orders over Rs. 99</span>
+        <span class="opacity-40">·</span>
+        <span>New arrivals every week</span>
+        <span class="opacity-40">·</span>
+        <span
+          >Use code <strong class="font-bold">ZEVO10</strong> for 10% off</span
+        >
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation -->
+<header
+  id="main-nav"
+  class="sticky top-0 z-50 h-16 border-b bg-z-bg/80 backdrop-blur-[20px] transition-all duration-300"
+  style="border-bottom-color: var(--c-border)"
+>
+  <div
+    class="max-w-page mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center gap-3 lg:gap-5"
+  >
+    <!-- Logo -->
+    <a
+      href="index.html"
+      class="font-heading font-black text-2xl tracking-tight flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
+      aria-label="ZEVO — Home"
+    >
+      ZEV<span class="text-accent">O</span>
+    </a>
+
+    <!-- Search bar (md+) -->
+    <div
+      class="hidden md:flex flex-1 max-w-[520px] items-stretch border rounded-xl overflow-hidden bg-z-surface"
+      style="border-color: var(--c-border)"
+    >
+      <!-- Category filter -->
+      <!-- <select
+        id="search-category"
+        class="bg-z-elevated border-r text-z-muted font-mono text-xs px-3 cursor-pointer focus:outline-none appearance-none"
+        style="border-right-color: var(--c-border)"
+        aria-label="Category filter"
+      >
+        <option value="">All</option>
+        <option value="smartphones">Phones</option>
+        <option value="laptops">Laptops</option>
+        <option value="audio">Audio</option>
+        <option value="wearables">Wearables</option>
+        <option value="accessories">Accessories</option>
+      </select> -->
+      <!-- Search input -->
+      <input
+        id="nav-search"
+        type="search"
+        placeholder="Search products…"
+        class="flex-1 bg-transparent px-4 py-2 text-sm text-z-text placeholder-z-muted focus:outline-none min-w-0"
+        aria-label="Search products"
+      />
+      <!-- Search button -->
+      <button
+        id="search-btn"
+        class="bg-accent text-[#0A0A0A] px-4 flex items-center justify-center hover:bg-yellow-300 transition-colors cursor-pointer flex-shrink-0"
+        aria-label="Search"
+      >
+        <i class="fa-solid fa-magnifying-glass text-xs"></i>
+      </button>
+    </div>
+
+    <!-- Desktop nav links -->
+    <nav
+      class="hidden lg:flex items-center gap-6 font-body font-medium text-sm"
+      aria-label="Main navigation"
+    >
+      <a
+        href="shop.html"
+        class="nav-link text-z-muted hover:text-z-text transition-colors duration-150"
+        >Shop</a
+      >
+      <a
+        href="compare.html"
+        class="nav-link text-z-muted hover:text-z-text transition-colors duration-150"
+        >Compare</a
+      >
+      <a
+        href="about.html"
+        class="nav-link text-z-muted hover:text-z-text transition-colors duration-150"
+        >About</a
+      >
+      <a
+        href="contact.html"
+        class="nav-link text-z-muted hover:text-z-text transition-colors duration-150"
+        >Contact</a
+      >
+    </nav>
+
+    <!-- Right actions -->
+    <div class="ml-auto flex items-center gap-1.5">
+      <!-- Theme toggle -->
+      <button
+        id="theme-toggle"
+        class="w-9 h-9 flex items-center justify-center rounded-lg bg-z-surface border transition-colors hover:border-accent cursor-pointer"
+        style="border-color: var(--c-border)"
+        aria-label="Toggle light/dark theme"
+      >
+        <!-- Moon icon (shown in dark mode) -->
+        <i class="hidden dark:block fa-solid fa-moon text-z-muted"></i>
+        <!-- Sun icon (shown in light mode) -->
+        <i class="block dark:hidden fa-solid fa-sun text-z-muted"></i>
+      </button>
+
+      <!-- Wishlist -->
+      <a
+        href="wishlist.html"
+        class="hidden sm:flex w-9 h-9 items-center justify-center rounded-lg bg-z-surface border transition-colors hover:border-accent"
+        style="border-color: var(--c-border)"
+        aria-label="Wishlist"
+      >
+        <i class="fa-regular fa-heart text-z-muted"></i>
+      </a>
+
+      <!-- Cart with badge -->
+      <button
+        id="cart-btn"
+        class="relative w-9 h-9 flex items-center justify-center rounded-lg bg-z-surface border transition-colors hover:border-accent cursor-pointer"
+        style="border-color: var(--c-border)"
+        aria-label="Open cart"
+      >
+        <i class="fa-solid fa-cart-shopping text-z-muted"></i>
+        <span
+          id="cart-count"
+          class="absolute -top-1.5 -right-1.5 w-5 h-5 flex items-center justify-center bg-accent text-[#0A0A0A] font-mono text-[10px] font-bold rounded-full hidden"
+          aria-live="polite"
+          aria-label="Cart items"
+          >0</span
+        >
+      </button>
+
+      <!-- Mobile menu button -->
+      <button
+        id="mobile-menu-btn"
+        class="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg bg-z-surface border transition-colors hover:border-accent cursor-pointer"
+        style="border-color: var(--c-border)"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <i class="fa-solid fa-bars text-z-muted"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu (slide down) -->
+  <div
+    id="mobile-menu"
+    class="absolute top-full left-0 right-0 bg-z-surface/95 backdrop-blur-xl border-b z-50 lg:hidden"
+    style="border-bottom-color: var(--c-border)"
+    role="dialog"
+    aria-label="Mobile menu"
+  >
+    <!-- Mobile search -->
+    <div
+      class="px-4 py-3 border-b"
+      style="border-bottom-color: var(--c-border)"
+    >
+      <div
+        class="flex items-stretch border rounded-xl overflow-hidden bg-z-elevated"
+        style="border-color: var(--c-border)"
+      >
+        <input
+          id="mobile-search"
+          type="search"
+          placeholder="Search products…"
+          class="flex-1 bg-transparent px-4 py-2.5 text-sm text-z-text placeholder-z-muted focus:outline-none"
+          aria-label="Search products"
+        />
+        <button
+          class="bg-accent text-[#0A0A0A] px-4 flex items-center justify-center hover:bg-yellow-300 transition-colors cursor-pointer"
+          aria-label="Search"
+        >
+          <i class="fa-solid fa-magnifying-glass text-xs"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile links -->
+    <nav class="px-4 py-3 flex flex-col gap-1" aria-label="Mobile navigation">
+      <a
+        href="shop.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-z-muted hover:text-z-text hover:bg-z-elevated transition-colors font-body font-medium text-sm"
+        >Shop</a
+      >
+      <a
+        href="compare.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-z-muted hover:text-z-text hover:bg-z-elevated transition-colors font-body font-medium text-sm"
+        >Compare</a
+      >
+      <a
+        href="wishlist.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-z-muted hover:text-z-text hover:bg-z-elevated transition-colors font-body font-medium text-sm"
+        >Wishlist</a
+      >
+      <a
+        href="about.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-z-muted hover:text-z-text hover:bg-z-elevated transition-colors font-body font-medium text-sm"
+        >About</a
+      >
+      <a
+        href="contact.html"
+        class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-z-muted hover:text-z-text hover:bg-z-elevated transition-colors font-body font-medium text-sm"
+        >Contact</a
+      >
+    </nav>
+  </div>
+</header>
+
+<!-- ── Cart Overlay ─────────────────────────────────────── -->
+<div
+  id="cart-overlay"
+  class="drawer-overlay fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] hidden"
+></div>
+
+<!-- ── Cart Drawer ──────────────────────────────────────── -->
+<aside
+  id="cart-drawer"
+  class="cart-drawer fixed top-0 right-0 h-full w-full max-w-sm bg-z-surface border-l z-[70] flex flex-col"
+  style="border-left-color: var(--c-border)"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Shopping cart"
+>
+  <!-- Header -->
+  <div
+    class="flex items-center justify-between p-5 border-b"
+    style="border-bottom-color: var(--c-border)"
+  >
+    <div>
+      <h2 class="font-heading font-bold text-lg text-z-text">Your Cart</h2>
+      <p id="cart-drawer-count" class="font-mono text-xs text-z-muted mt-0.5">
+        0 items
+      </p>
+    </div>
+    <button
+      id="cart-close"
+      class="w-9 h-9 flex items-center justify-center rounded-xl bg-z-elevated hover:border hover:border-accent transition-colors cursor-pointer"
+      aria-label="Close cart"
+    >
+      <i class="fa-solid fa-xmark text-z-muted"></i>
+    </button>
+  </div>
+
+  <!-- Items (rendered by store.js) -->
+  <div
+    id="cart-drawer-items"
+    class="flex-1 overflow-y-auto p-5 space-y-5"
+  ></div>
+
+  <!-- Footer (rendered by store.js) -->
+  <div
+    id="cart-drawer-footer"
+    class="p-5 border-t space-y-4"
+    style="border-top-color: var(--c-border)"
+  ></div>
+</aside>

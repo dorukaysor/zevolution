@@ -1,0 +1,245 @@
+<!-- ═══════════════════════════════════════════════════════════
+     ZEVO — footer.html (shared partial)
+     Injected into #footer-placeholder on every page
+═══════════════════════════════════════════════════════════ -->
+
+<footer class="border-t bg-z-surface" style="border-top-color: var(--c-border)">
+  <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <!-- 4-column grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+      <!-- Brand column -->
+      <div class="sm:col-span-2 lg:col-span-1">
+        <a
+          href="index.html"
+          class="font-heading font-black text-2xl tracking-tight inline-block mb-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
+          aria-label="ZEVO Home"
+        >
+          ZEV<span class="text-accent">O</span>
+        </a>
+        <p class="font-body text-sm text-z-muted leading-relaxed mb-5 max-w-xs">
+          Built for what's next. Premium electronics and gadgets for the
+          deliberate tech enthusiast.
+        </p>
+        <!-- Social links -->
+        <div class="flex items-center gap-3">
+          <a
+            href="#"
+            class="w-9 h-9 flex items-center justify-center rounded-xl border bg-z-elevated text-z-muted hover:border-accent hover:text-z-text transition-colors"
+            style="border-color: var(--c-border)"
+            aria-label="Facebook"
+          >
+            <i class="fa-brands fa-facebook text-sm"></i>
+          </a>
+          <a
+            href="#"
+            class="w-9 h-9 flex items-center justify-center rounded-xl border bg-z-elevated text-z-muted hover:border-accent hover:text-z-text transition-colors"
+            style="border-color: var(--c-border)"
+            aria-label="Instagram"
+          >
+            <i class="fa-brands fa-instagram text-sm"></i>
+          </a>
+          <a
+            href="#"
+            class="w-9 h-9 flex items-center justify-center rounded-xl border bg-z-elevated text-z-muted hover:border-accent hover:text-z-text transition-colors"
+            style="border-color: var(--c-border)"
+            aria-label="YouTube"
+          >
+            <i class="fa-brands fa-youtube text-sm"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Shop links -->
+      <div class="footer-col">
+        <h3
+          class="font-heading font-bold text-sm uppercase tracking-[0.08em] text-z-text mb-4 flex justify-between items-center cursor-pointer md:cursor-default"
+          onclick="window.toggleFooterCol(this)"
+        >
+          <span>Shop</span>
+          <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200 md:hidden" aria-hidden="true"></i>
+        </h3>
+        <ul class="space-y-3 footer-links">
+          <li>
+            <a
+              href="shop.html"
+              class="font-body text-sm text-z-muted hover:text-z-text transition-colors"
+              >All Products</a
+            >
+          </li>
+          <li>
+            <a
+              href="shop.html?cat=smartphones"
+              class="font-body text-sm text-z-muted hover:text-z-text transition-colors"
+              >Smartphones</a
+            >
+          </li>
+          <li>
+            <a
+              href="shop.html?cat=laptops"
+              class="font-body text-sm text-z-muted hover:text-z-text transition-colors"
+              >Laptops</a
+            >
+          </li>
+          <li>
+            <a
+              href="shop.html?cat=audio"
+              class="font-body text-sm text-z-muted hover:text-z-text transition-colors"
+              >Audio</a
+            >
+          </li>
+          <li>
+            <a
+              href="shop.html?cat=wearables"
+              class="font-body text-sm text-z-muted hover:text-z-text transition-colors"
+              >Wearables</a
+            >
+          </li>
+          <li>
+            <a
+              href="shop.html?cat=accessories"
+              class="font-body text-sm text-z-muted hover:text-z-text transition-colors"
+              >Accessories</a
+            >
+          </li>
+          <li>
+            <a
+              href="shop.html?sort=sale"
+              class="font-body text-sm text-z-muted hover:text-z-text transition-colors"
+              >Deals &amp; Sale</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Support links -->
+      <div class="footer-col">
+        <h3
+          class="font-heading font-bold text-sm uppercase tracking-[0.08em] text-z-text mb-4 flex justify-between items-center cursor-pointer md:cursor-default"
+          onclick="window.toggleFooterCol(this)"
+        >
+          <span>Support</span>
+          <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200 md:hidden" aria-hidden="true"></i>
+        </h3>
+        <ul class="space-y-3 footer-links">
+          <li>
+            <a
+              href="contact.html"
+              class="font-body text-sm text-z-muted hover:text-z-text transition-colors"
+              >Contact Us</a
+            >
+          </li>
+          <li>
+            <a
+              href="about.html"
+              class="font-body text-sm text-z-muted hover:text-z-text transition-colors"
+              >About ZEVO</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="font-body text-sm text-z-muted hover:text-z-text transition-colors"
+              >Shipping Policy</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="font-body text-sm text-z-muted hover:text-z-text transition-colors"
+              >Returns &amp; Warranty</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="font-body text-sm text-z-muted hover:text-z-text transition-colors"
+              >Track Order</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="font-body text-sm text-z-muted hover:text-z-text transition-colors"
+              >Privacy Policy</a
+            >
+          </li>
+          <li>
+            <a
+              href="404.html"
+              class="font-body text-sm text-z-muted hover:text-z-text transition-colors"
+              >FAQ</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h3
+          class="font-heading font-bold text-sm uppercase tracking-[0.08em] text-z-text mb-4"
+        >
+          Stay Updated
+        </h3>
+        <p class="font-body text-sm text-z-muted mb-4 leading-relaxed">
+          Get early access to new drops and exclusive deals.
+        </p>
+        <form id="footer-newsletter" onsubmit="return false;" class="space-y-2">
+          <div class="flex items-stretch gap-2">
+            <label for="footer-email" class="sr-only">Email address</label>
+            <input
+              id="footer-email"
+              type="email"
+              placeholder="you@email.com"
+              required
+              class="flex-1 min-w-0 px-3.5 py-2.5 text-sm bg-z-elevated border rounded-xl text-z-text placeholder-z-muted focus:outline-none focus:border-accent transition-colors"
+              style="border-color: var(--c-border)"
+            />
+            <button
+              type="submit"
+              class="flex-shrink-0 bg-accent text-[#0A0A0A] font-semibold px-4 rounded-xl text-sm hover:bg-yellow-300 transition-colors cursor-pointer"
+              id="footer-sub-btn"
+            >
+              <i class="fa-solid fa-paper-plane text-xs"></i>
+            </button>
+          </div>
+          <p class="font-mono text-[11px] text-z-muted">
+            No spam, ever. Unsubscribe anytime.
+          </p>
+        </form>
+      </div>
+    </div>
+    <!-- /grid -->
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t" style="border-top-color: var(--c-border)">
+    <div
+      class="max-w-page mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4"
+    >
+      <p class="font-mono text-xs text-z-muted text-center sm:text-left">
+        &copy; <span id="footer-year"></span> ZEVO Inc. </p>
+      
+      <!-- Payment icons -->
+      
+      <p class="font-mono text-xs text-z-muted text-center sm:text-left">
+        Developed by <a href="https://github.com/dorukaysor">dorukaysor</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Footer newsletter + year
+  document.getElementById("footer-year").textContent = new Date().getFullYear();
+  document
+    .getElementById("footer-newsletter")
+    ?.addEventListener("submit", function (e) {
+      e.preventDefault();
+      Toast.show({
+        title: "Subscribed!",
+        message: "You're on the list. Welcome to ZEVO.",
+        type: "success",
+      });
+      this.reset();
+    });
+</script>

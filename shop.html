@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop / Listing | ZEVO — Built for What's Next</title>
+  <meta name="description" content="Browse all ZEVO electronics — smartphones, laptops, audio, wearables and accessories. Free shipping over Rs. 99. 2-year warranty.">
+
+  <script>
+    (
+      function() {
+        var t=localStorage.getItem('zevo-theme');
+          if(t==='light') document.documentElement.classList.remove('dark');
+          else document.documentElement.classList.add('dark');
+      }
+    )()
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            accent:      '#FACC15',
+            base:        '#0A0A0A',
+            surface:     '#111111',
+            elevated:    '#1A1A1A',
+            success:     '#22C55E',
+            danger:      '#EF4444',
+            info:        '#60A5FA',
+            'z-bg':      'var(--c-bg)',
+            'z-surface': 'var(--c-surface)',
+            'z-elevated':'var(--c-elevated)',
+            'z-text':    'var(--c-text)',
+            'z-muted':   'var(--c-muted)',
+          },
+          fontFamily: {
+            heading: ['Outfit', 'sans-serif'],
+            body:    ['Inter', 'sans-serif'],
+            mono:    ['JetBrains Mono', 'monospace'],
+          },
+          maxWidth: { page: '1280px' },
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .border-subtle { border-color: var(--c-border); }
+
+    .filter-check {
+      width: 16px; height: 16px;
+      border: 1px solid var(--c-border);
+      border-radius: 4px;
+      background: var(--c-elevated);
+      flex-shrink: 0;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .filter-check.checked { background: #FACC15; border-color: #FACC15; }
+    .filter-check.checked::after {
+      content: '';
+      display: block; width: 9px; height: 5px;
+      border-left: 2px solid #0A0A0A; border-bottom: 2px solid #0A0A0A;
+      transform: rotate(-45deg) translateY(-1px);
+    }
+
+    .filter-radio {
+      width: 16px; height: 16px;
+      border: 1px solid var(--c-border);
+      border-radius: 50%;
+      background: var(--c-elevated);
+      flex-shrink: 0;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.15s;
+    }
+    .filter-radio.checked { border-color: #FACC15; }
+    .filter-radio.checked::after {
+      content: '';
+      display: block; width: 8px; height: 8px;
+      border-radius: 50%; background: #FACC15;
+    }
+
+    .filter-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px 4px 12px;
+      border-radius: 100px;
+      background: var(--c-elevated);
+      border: 1px solid var(--c-border);
+      font-family: 'JetBrains Mono', monospace; font-size: 11px;
+      color: var(--c-text); cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .filter-chip:hover { border-color: #FACC15; }
+    .filter-chip-x {
+      width: 14px; height: 14px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      background: rgba(156,163,175,0.2);
+      color: var(--c-muted);
+    }
+  </style>
+</head>
+
+<body class="bg-z-bg text-z-text font-body antialiased">
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <div id="nav-placeholder"></div>
+
+  <main id="main-content">
+
+    <!-- Page Header -->
+    <section class="bg-z-surface border-b border-subtle py-10">
+      <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8">
+        <p class="font-mono text-xs text-z-muted uppercase tracking-[0.12em] mb-2">Catalog</p>
+        <h1 class="font-heading font-black text-3xl lg:text-4xl text-z-text">Shop All Products</h1>
+        <p class="text-z-muted mt-2 text-sm">2.4M+ orders shipped &mdash; Free returns &mdash; 2-year warranty on every purchase.</p>
+      </div>
+    </section>
+
+    <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+      <!-- Top bar -->
+      <div class="flex items-center justify-between mb-6 gap-4 flex-wrap">
+        <button id="filters-open-btn"
+          class="lg:hidden flex items-center gap-2 border border-subtle text-z-text text-sm rounded-xl px-4 py-2 font-body cursor-pointer hover:border-accent transition-colors bg-z-surface">
+          <i class="fa-solid fa-sliders text-xs"></i>
+          Filters
+          <span id="filter-badge" class="hidden bg-accent text-[#0A0A0A] text-[10px] font-mono font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none">0</span>
+        </button>
+
+        <p id="results-count" class="font-mono text-sm text-z-muted flex-1">Loading&hellip;</p>
+
+        <select id="sort-select"
+          class="bg-z-surface border border-subtle text-z-text text-sm rounded-xl px-4 py-2 font-body cursor-pointer focus:outline-none focus:border-accent transition-colors">
+          <option value="featured">Featured</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating">Top Rated</option>
+          <option value="new">Newest</option>
+          <option value="sale">On Sale</option>
+        </select>
+      </div>
+
+      <div class="flex gap-8">
+
+        <!-- Mobile drawer backdrop -->
+        <div id="filter-overlay" class="drawer-overlay fixed inset-0 bg-black/60 z-40 hidden lg:hidden"></div>
+
+        <!-- Sidebar / Drawer -->
+        <aside id="filter-sidebar"
+          class="filter-drawer fixed top-0 left-0 h-full w-72 bg-z-bg z-50 overflow-y-auto p-6 border-r border-subtle
+                 lg:static lg:transform-none lg:h-auto lg:w-60 lg:flex-shrink-0 lg:p-0 lg:border-r-0 lg:overflow-visible lg:z-auto"
+          aria-label="Product filters">
+
+          <!-- Mobile header -->
+          <div class="flex items-center justify-between mb-6 lg:hidden">
+            <h2 class="font-heading font-bold text-lg text-z-text">Filters</h2>
+            <button id="filters-close-btn"
+              class="w-8 h-8 flex items-center justify-center rounded-full bg-z-elevated text-z-muted hover:text-z-text transition-colors cursor-pointer">
+              <i class="fa-solid fa-xmark text-z-muted"></i>
+            </button>
+          </div>
+
+          <!-- Categories -->
+          <div class="mb-7">
+            <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-z-muted mb-3">Category</p>
+            <div id="category-filters" class="space-y-2"></div>
+          </div>
+
+          <!-- Price range -->
+          <div class="mb-7 border-t border-subtle pt-5">
+            <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-z-muted mb-3">Price Range</p>
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs text-z-text">Rs. 0</span>
+              <span id="price-max-label" class="font-mono text-xs text-z-text">Rs. 2,000+</span>
+            </div>
+            <input type="range" id="price-slider" min="0" max="2000" step="50" value="2000"
+              class="w-full" aria-label="Maximum price filter">
+            <p class="font-mono text-[10px] text-z-muted mt-2">
+              Max price: <span id="price-slider-val" class="text-z-text">Rs. 2,000+</span>
+            </p>
+          </div>
+
+          <!-- Rating -->
+          <div class="mb-7 border-t border-subtle pt-5">
+            <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-z-muted mb-3">Minimum Rating</p>
+            <div id="rating-filters" class="space-y-2"></div>
+          </div>
+
+          <!-- Tags -->
+          <div class="mb-7 border-t border-subtle pt-5">
+            <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-z-muted mb-3">Tags</p>
+            <div id="tag-filters" class="space-y-2"></div>
+          </div>
+
+          <!-- Reset -->
+          <div class="border-t border-subtle pt-5">
+            <button id="reset-filters"
+              class="w-full text-center font-body text-sm text-z-muted hover:text-[var(--c-accent-text)] transition-colors cursor-pointer py-2">
+              Reset all filters
+            </button>
+          </div>
+        </aside>
+
+        <!-- Product grid area -->
+        <div class="flex-1 min-w-0">
+
+          <!-- Active filter chips -->
+          <div id="active-filters" class="flex flex-wrap gap-2 mb-6 empty:hidden"></div>
+
+          <!-- Grid -->
+          <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+
+          <!-- Empty state -->
+          <div id="empty-state" class="hidden">
+            <div class="flex flex-col items-center justify-center py-24 gap-4 text-center">
+              <div class="w-16 h-16 rounded-full bg-z-elevated flex items-center justify-center">
+                <i class="fa-solid fa-magnifying-glass text-z-muted text-2xl"></i>
+              </div>
+              <div>
+                <p class="font-heading font-bold text-xl text-z-text">No products found</p>
+                <p class="text-z-muted text-sm mt-1">Try adjusting your filters or search terms.</p>
+              </div>
+              <button id="empty-reset-btn"
+                class="mt-2 border border-subtle text-z-text text-sm rounded-xl px-5 py-2.5 hover:border-accent transition-colors cursor-pointer">
+                Clear all filters
+              </button>
+            </div>
+          </div>
+
+          <!-- Load more -->
+          <div id="load-more-wrapper" class="text-center mt-10 hidden">
+            <button id="load-more"
+              class="border border-subtle text-z-text font-body font-medium px-8 py-3 rounded-xl hover:border-accent hover:text-[var(--c-accent-text)] transition-all duration-200 cursor-pointer">
+              <span id="load-more-text">Load More</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none" aria-live="polite"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/lenis.js"></script>
+    <script src="js/partials.js"></script>
+
+  <!-- Shop logic-->
+  <script src="js/meta/shop.js"></script>
+</body>
+</html>

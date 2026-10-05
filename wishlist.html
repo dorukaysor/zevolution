@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wishlist | ZEVO — Built for What's Next</title>
+  <meta name="description" content="Manage your favorite ZEVO products, add them to your cart, or remove them from your wishlist.">
+  <script>(function(){var t=localStorage.getItem('zevo-theme');if(t==='light')document.documentElement.classList.remove('dark');else document.documentElement.classList.add('dark');})()</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            accent: '#FACC15', base: '#0A0A0A', surface: '#111111', elevated: '#1A1A1A',
+            success: '#22C55E', danger: '#EF4444', info: '#60A5FA',
+            'z-bg': 'var(--c-bg)', 'z-surface': 'var(--c-surface)', 'z-elevated': 'var(--c-elevated)',
+            'z-text': 'var(--c-text)', 'z-muted': 'var(--c-muted)',
+          },
+          fontFamily: { heading: ['Outfit','sans-serif'], body: ['Inter','sans-serif'], mono: ['JetBrains Mono','monospace'] },
+          maxWidth: { page: '1280px' }
+        }
+      }
+    }
+  </script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .border-subtle { border-color: var(--c-border); }
+    .wishlist-card {
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .wishlist-card.fade-out {
+      opacity: 0;
+      transform: scale(0.9) translateY(10px);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="bg-z-bg text-z-text font-body antialiased">
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <div id="nav-placeholder"></div>
+
+  <main id="main-content">
+    <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+      <!-- Page heading -->
+      <div class="flex items-center gap-3 mb-8">
+        <h1 class="font-heading font-black text-3xl text-z-text">My Wishlist</h1>
+        <span id="badge-count" class="hidden font-mono text-xs bg-accent text-[#0A0A0A] rounded-full px-2.5 py-0.5 font-semibold"></span>
+      </div>
+
+      <!-- Empty state -->
+      <div id="wishlist-empty" class="hidden text-center py-24">
+        <div class="w-24 h-24 rounded-full bg-z-elevated flex items-center justify-center mx-auto mb-5 border border-subtle">
+          <i class="fa-regular fa-heart text-z-muted text-4xl"></i>
+        </div>
+        <p class="font-heading font-bold text-xl text-z-text mb-2">Your wishlist is empty</p>
+        <p class="font-body text-sm text-z-muted mb-6">Explore ZEVO and favorite products to see them here.</p>
+        <a href="shop.html" class="inline-flex items-center gap-2 bg-accent text-[#0A0A0A] font-body font-semibold px-6 py-3 rounded-xl text-sm hover:bg-yellow-300 transition-colors cursor-pointer">
+          <i class="fa-solid fa-compass"></i>
+          Explore Products
+        </a>
+      </div>
+
+      <!-- Wishlist Grid -->
+      <div id="wishlist-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- Rendered dynamically -->
+      </div>
+
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/lenis.js"></script>
+    <script src="js/partials.js"></script>
+  <script>
+    (function() {
+      const gridEl  = document.getElementById('wishlist-grid');
+      const emptyEl = document.getElementById('wishlist-empty');
+      const countEl = document.getElementById('badge-count');
+
+      function formatPrice(val) {
+        return 'Rs. ' + val.toLocaleString('en-IN');
+      }
+
+      function renderCard(product) {
+        const hasDiscount = !!product.oldPrice;
+        const discountPercentage = hasDiscount ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) : 0;
+        
+        return `
+          <article class="wishlist-card group relative flex flex-col bg-z-surface border border-subtle rounded-2xl p-4 hover:border-accent hover:shadow-[0_8px_32px_rgba(250,204,21,0.05)] transition-all duration-300" id="wish-card-${product.id}">
+            <!-- Image & actions container -->
+            <div class="relative overflow-hidden rounded-xl bg-z-elevated mb-4" style="aspect-ratio: 1/1">
+              <a href="product.html?id=${product.id}" class="block w-full h-full">
+                <img src="${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+              </a>
+              
+              <!-- Floating badges -->
+              <div class="absolute top-2 left-2 flex flex-col gap-1.5 pointer-events-none">
+                ${product.tag ? `<span class="bg-accent/20 text-[var(--c-accent-text)] border border-accent/30 font-mono text-[9px] uppercase tracking-[0.06em] rounded-full px-2 py-0.5 font-bold">${product.tag}</span>` : ''}
+                ${hasDiscount ? `<span class="bg-danger/20 text-danger border border-danger/30 font-mono text-[9px] uppercase tracking-[0.06em] rounded-full px-2 py-0.5 font-bold">-${discountPercentage}%</span>` : ''}
+              </div>
+
+              <!-- Delete wishlist button -->
+              <button class="remove-wishlist absolute top-2 right-2 w-8 h-8 rounded-full bg-z-surface/90 border border-subtle flex items-center justify-center hover:border-danger hover:text-danger text-z-muted transition-colors cursor-pointer" data-id="${product.id}" aria-label="Remove from wishlist">
+                <i class="fa-solid fa-trash-can text-xs"></i>
+              </button>
+            </div>
+
+            <!-- Product detail details -->
+            <div class="flex-1 flex flex-col">
+              <span class="font-mono text-[10px] text-z-muted uppercase tracking-wider mb-1">${product.categoryLabel}</span>
+              <a href="product.html?id=${product.id}" class="font-heading font-bold text-base text-z-text hover:text-accent transition-colors leading-tight mb-2">${product.name}</a>
+              
+              <!-- Price block -->
+              <div class="flex items-baseline gap-2 mb-4 mt-auto">
+                <span class="font-mono text-base font-semibold text-[var(--c-accent-text)]">${formatPrice(product.price)}</span>
+                ${hasDiscount ? `<span class="font-mono text-xs text-z-muted line-through">${formatPrice(product.oldPrice)}</span>` : ''}
+              </div>
+
+              <!-- Add to cart -->
+              <button class="add-to-cart w-full bg-accent text-[#0A0A0A] font-body font-semibold py-2.5 rounded-xl text-sm hover:bg-yellow-300 transition-colors cursor-pointer flex items-center justify-center gap-2" data-id="${product.id}">
+                <i class="fa-solid fa-cart-shopping text-xs"></i>
+                Add to Cart
+              </button>
+            </div>
+          </article>
+        `;
+      }
+
+      function render() {
+        const wishlist = Store.getWishlist();
+        
+        if (wishlist.length === 0) {
+          countEl.classList.add('hidden');
+          gridEl.classList.add('hidden');
+          emptyEl.classList.remove('hidden');
+          return;
+        }
+
+        countEl.textContent = wishlist.length;
+        countEl.classList.remove('hidden');
+        emptyEl.classList.add('hidden');
+        gridEl.classList.remove('hidden');
+
+        gridEl.innerHTML = wishlist
+          .map(id => window.getProduct(id))
+          .filter(Boolean)
+          .map(renderCard)
+          .join('');
+
+        // Bind delete listeners
+        gridEl.querySelectorAll('.remove-wishlist').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const id = this.dataset.id;
+            const card = document.getElementById(`wish-card-${id}`);
+            
+            if (card) {
+              card.classList.add('fade-out');
+              card.addEventListener('transitionend', function() {
+                Store.toggleWishlist(id);
+                Toast.show({ title: 'Removed from wishlist', message: window.getProduct(id)?.name, type: 'info' });
+                // Re-sync navigation wishlist buttons if they exist
+                document.querySelectorAll(`.wishlist-btn[data-id="${id}"]`).forEach(b => {
+                  const icon = b.querySelector('.wishlist-icon');
+                  if (icon) icon.className = 'fa-regular fa-heart wishlist-icon text-z-muted';
+                });
+                render();
+              }, { once: true });
+            }
+          });
+        });
+      }
+
+      document.addEventListener('zevo:wishlist:updated', render);
+      render();
+    })();
+  </script>
+</body>
+</html>

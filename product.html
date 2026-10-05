@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Detail | ZEVO — Built for What's Next</title>
+    <meta
+      name="description"
+      content="Explore detailed specs, reviews and variants for ZEVO electronics products. Free shipping. 2-year warranty."
+    />
+
+    <script>
+      (function () {
+        var t = localStorage.getItem("zevo-theme");
+        if (t === "light") document.documentElement.classList.remove("dark");
+        else document.documentElement.classList.add("dark");
+      })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              accent: "#FACC15",
+              base: "#0A0A0A",
+              surface: "#111111",
+              elevated: "#1A1A1A",
+              success: "#22C55E",
+              danger: "#EF4444",
+              info: "#60A5FA",
+              "z-bg": "var(--c-bg)",
+              "z-surface": "var(--c-surface)",
+              "z-elevated": "var(--c-elevated)",
+              "z-text": "var(--c-text)",
+              "z-muted": "var(--c-muted)",
+            },
+            fontFamily: {
+              heading: ["Outfit", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            maxWidth: { page: "1280px" },
+          },
+        },
+      };
+    </script>
+
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/main.css" />
+    <style>
+      .border-subtle {
+        border-color: var(--c-border);
+      }
+
+      /* Tab active underline */
+      .tab-btn {
+        position: relative;
+        padding-bottom: 14px;
+        font-size: 0.9rem;
+        transition: color 0.2s;
+        cursor: pointer;
+        background: none;
+        border: none;
+        outline: none;
+      }
+      .tab-btn::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 0;
+        height: 2px;
+        background: #facc15;
+        border-radius: 2px;
+        transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .tab-btn.active {
+        color: var(--c-text);
+        font-weight: 600;
+      }
+      .tab-btn.active::after {
+        width: 100%;
+      }
+
+      /* Color swatch */
+      .color-swatch {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s,
+          border-color 0.15s;
+        position: relative;
+      }
+      .color-swatch:hover {
+        transform: scale(1.1);
+      }
+      .color-swatch.selected {
+        border-color: #facc15;
+        box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.25);
+      }
+
+      /* Qty stepper button */
+      .qty-btn {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        border: 1px solid var(--c-border);
+        background: var(--c-elevated);
+        color: var(--c-text);
+        font-size: 1.1rem;
+        font-family: "JetBrains Mono", monospace;
+        cursor: pointer;
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+        user-select: none;
+      }
+      .qty-btn:hover {
+        border-color: #facc15;
+      }
+      .qty-btn:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+      }
+
+      /* Thumbnail */
+      .thumb {
+        width: 80px;
+        height: 80px;
+        border-radius: 14px;
+        overflow: hidden;
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition: border-color 0.15s;
+        background: var(--c-elevated);
+        flex-shrink: 0;
+      }
+      .thumb:hover {
+        border-color: rgba(250, 204, 21, 0.5);
+      }
+      .thumb.active {
+        border-color: #facc15;
+      }
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Spec row */
+      .spec-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--c-border);
+      }
+      .spec-row:last-child {
+        border-bottom: none;
+      }
+      .spec-key {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--c-muted);
+        white-space: nowrap;
+      }
+      .spec-val {
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        color: var(--c-text);
+        text-align: right;
+      }
+
+      /* Review card */
+      .review-card {
+        padding: 16px;
+        border-radius: 14px;
+        background: var(--c-elevated);
+        border: 1px solid var(--c-border);
+      }
+
+      /* Wishlist active state */
+      .wishlist-main-btn.wishlisted svg {
+        fill: #facc15;
+        stroke: #facc15;
+      }
+
+      /* Star fill */
+      .stars-accent {
+        color: #facc15;
+        letter-spacing: 1px;
+      }
+
+      /* Breadcrumb separator */
+      .bc-sep {
+        color: var(--c-muted);
+        margin: 0 6px;
+      }
+    </style>
+  </head>
+
+  <body class="bg-z-bg text-z-text font-body antialiased">
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <div id="nav-placeholder"></div>
+
+    <main id="main-content">
+      <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+        <!-- ── Rendered by JS ──────────────────────────────────── -->
+        <div id="product-root"></div>
+      </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <div
+      id="toast-container"
+      class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none"
+      aria-live="polite"
+    ></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/lenis.js"></script>
+    <script src="js/partials.js"></script>
+
+    <script>
+      (function () {
+        "use strict";
+
+        var root = document.getElementById("product-root");
+
+        /* ─ Mock reviews ──────────────────────────────────────────── */
+        var MOCK_REVIEWS = [
+          {
+            name: "Alex M.",
+            avatar: "https://picsum.photos/seed/reviewer1/80/80",
+            date: "March 14, 2026",
+            rating: 5,
+            title: "Absolutely worth every penny",
+            body: "I've been using this for two months now and it has completely transformed my workflow. The build quality is exceptional — solid, premium, and clearly built to last. Would recommend without hesitation.",
+          },
+          {
+            name: "Jordan T.",
+            avatar: "https://picsum.photos/seed/reviewer2/80/80",
+            date: "February 28, 2026",
+            rating: 4,
+            title: "Great product, minor nitpicks",
+            body: "Performance is top-tier and the design is clean. Battery life exceeded my expectations. Knocked one star off because the included accessories feel a bit budget for the price tier, but the core product itself is excellent.",
+          },
+          {
+            name: "Priya S.",
+            avatar: "https://picsum.photos/seed/reviewer3/80/80",
+            date: "January 9, 2026",
+            rating: 5,
+            title: "ZEVO nailed it again",
+            body: "This is my third ZEVO product and they keep raising the bar. The attention to detail, the packaging, the experience out of the box — it all feels considered and intentional. Pure quality from start to finish.",
+          },
+        ];
+
+        function renderStars(n) {
+          var full = Math.floor(n);
+          var half = n % 1 >= 0.5 ? 1 : 0;
+          var empty = 5 - full - half;
+          return "★".repeat(full) + (half ? "½" : "") + "☆".repeat(empty);
+        }
+
+        /* ─ 404 state ─────────────────────────────────────────────── */
+        function render404() {
+          document.title = "Product Not Found | ZEVO";
+          root.innerHTML =
+            '<div class="flex flex-col items-center justify-center py-24 text-center gap-6">' +
+            '<div class="w-20 h-20 rounded-full bg-z-elevated flex items-center justify-center">' +
+            '<i class="fa-solid fa-circle-exclamation text-z-muted text-3xl"></i>' +
+            "</div>" +
+            "<div>" +
+            '<p class="font-mono text-xs text-z-muted uppercase tracking-[0.12em] mb-2">Error 404</p>' +
+            '<h1 class="font-heading font-black text-3xl text-z-text">Product Not Found</h1>' +
+            "<p class=\"text-z-muted mt-3\">The product you're looking for doesn't exist or has been removed.</p>" +
+            "</div>" +
+            '<a href="shop.html" class="bg-accent text-[#0A0A0A] font-body font-semibold px-6 py-3 rounded-xl text-sm hover:bg-yellow-300 transition-colors cursor-pointer inline-block">' +
+            "Back to Shop" +
+            "</a>" +
+            "</div>";
+        }
+
+        /* ─ Main render ───────────────────────────────────────────── */
+        function renderProduct(product) {
+          var pct = window.discountPct(product.price, product.oldPrice);
+          var isWL = window.Store && Store.isWishlisted(product.id);
+
+          // Page title
+          document.title =
+            product.name + " | ZEVO \u2014 Built for What's Next";
+          document
+            .querySelector('meta[name="description"]')
+            .setAttribute("content", product.description.substring(0, 155));
+
+          // Breadcrumb
+          var breadcrumb =
+            '<nav aria-label="Breadcrumb" class="flex items-center flex-wrap gap-1 font-mono text-xs text-z-muted mb-8">' +
+            '<a href="index.html" class="hover:text-[var(--c-accent-text)] transition-colors">Home</a>' +
+            '<span class="bc-sep" aria-hidden="true">/</span>' +
+            '<a href="shop.html" class="hover:text-[var(--c-accent-text)] transition-colors">Shop</a>' +
+            '<span class="bc-sep" aria-hidden="true">/</span>' +
+            '<a href="shop.html?cat=' +
+            product.category +
+            '" class="hover:text-[var(--c-accent-text)] transition-colors">' +
+            product.categoryLabel +
+            "</a>" +
+            '<span class="bc-sep" aria-hidden="true">/</span>' +
+            '<span class="text-z-text" aria-current="page">' +
+            product.name +
+            "</span>" +
+            "</nav>";
+
+          // Thumbnails
+          var thumbsHTML = product.images
+            .map(function (src, i) {
+              return (
+                '<button class="thumb' +
+                (i === 0 ? " active" : "") +
+                '" data-thumb="' +
+                i +
+                '" data-src="' +
+                src +
+                '" aria-label="View image ' +
+                (i + 1) +
+                '">' +
+                '<img src="' +
+                src +
+                '" alt="' +
+                product.name +
+                " view " +
+                (i + 1) +
+                '" loading="' +
+                (i === 0 ? "eager" : "lazy") +
+                '">' +
+                "</button>"
+              );
+            })
+            .join("");
+
+          // Color swatches
+          var swatchesHTML = "";
+          if (product.colors && product.colors.length > 0) {
+            swatchesHTML =
+              '<div class="mt-6">' +
+              '<p class="font-mono text-[10px] uppercase tracking-[0.14em] text-z-muted mb-3">Color</p>' +
+              '<div class="flex items-center gap-2">' +
+              product.colors
+                .map(function (color, i) {
+                  return (
+                    '<button class="color-swatch' +
+                    (i === 0 ? " selected" : "") +
+                    '" data-color="' +
+                    color +
+                    '" data-idx="' +
+                    i +
+                    '"' +
+                    ' style="background:' +
+                    color +
+                    ";" +
+                    (color === "#FFFFFF" || color === "#F5F5F5"
+                      ? "border:1px solid var(--c-border);"
+                      : "") +
+                    '"' +
+                    ' aria-label="Color ' +
+                    color +
+                    '" title="' +
+                    color +
+                    '"></button>'
+                  );
+                })
+                .join("") +
+              "</div>" +
+              "</div>";
+          }
+
+          // Specs
+          var specsHTML = Object.keys(product.specs)
+            .map(function (key) {
+              return (
+                '<div class="spec-row">' +
+                '<span class="spec-key">' +
+                key +
+                "</span>" +
+                '<span class="spec-val">' +
+                product.specs[key] +
+                "</span>" +
+                "</div>"
+              );
+            })
+            .join("");
+
+          // Reviews
+          var reviewsHTML = MOCK_REVIEWS.map(function (r) {
+            return (
+              '<div class="review-card">' +
+              '<div class="flex items-center gap-3 mb-3">' +
+              '<img src="' +
+              r.avatar +
+              '" alt="' +
+              r.name +
+              '" class="w-9 h-9 rounded-full object-cover flex-shrink-0">' +
+              '<div class="flex-1 min-w-0">' +
+              '<p class="font-body font-semibold text-sm text-z-text">' +
+              r.name +
+              "</p>" +
+              '<p class="font-mono text-[10px] text-z-muted">' +
+              r.date +
+              "</p>" +
+              "</div>" +
+              '<span class="stars-accent text-sm">' +
+              renderStars(r.rating) +
+              "</span>" +
+              "</div>" +
+              '<p class="font-body font-semibold text-sm text-z-text mb-1">' +
+              r.title +
+              "</p>" +
+              '<p class="font-body text-sm text-z-muted leading-relaxed">' +
+              r.body +
+              "</p>" +
+              "</div>"
+            );
+          }).join("");
+
+          // Badge
+          var badgeHTML = product.tag
+            ? '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-mono text-[10px] uppercase tracking-[0.06em] border ' +
+              (product.tag === "Sale"
+                ? "bg-red-500/15 text-red-400 border-red-500/30"
+                : "bg-accent/15 text-[var(--c-accent-text)] border-accent/30") +
+              '">' +
+              product.tag +
+              "</span>"
+            : "";
+
+          root.innerHTML =
+            breadcrumb +
+            '<div class="grid lg:grid-cols-2 gap-8 lg:gap-16 mt-0">' +
+            /* ── Left: Image gallery ────────────────────────────── */
+            "<div>" +
+            '<div class="rounded-2xl overflow-hidden bg-z-elevated mb-4 relative" style="aspect-ratio:1/1">' +
+            '<img id="main-img-el" src="' +
+            product.images[0] +
+            '" alt="' +
+            product.name +
+            '"' +
+            ' class="w-full h-full object-cover transition-opacity duration-300" loading="eager">' +
+            "</div>" +
+            '<div class="flex gap-3 overflow-x-auto scrollbar-hide pb-1">' +
+            thumbsHTML +
+            "</div>" +
+            "</div>" +
+            /* ── Right: Product info ─────────────────────────────── */
+            "<div>" +
+            // Category + badge
+            '<div class="flex items-center gap-3 mb-2">' +
+            '<span class="font-mono text-xs text-z-muted uppercase tracking-wider">' +
+            product.categoryLabel +
+            "</span>" +
+            badgeHTML +
+            "</div>" +
+            // Name
+            '<h1 class="font-heading font-black text-3xl lg:text-4xl text-z-text leading-tight">' +
+            product.name +
+            "</h1>" +
+            // Rating
+            '<div class="flex items-center gap-3 mt-3">' +
+            '<span class="stars-accent text-lg" aria-hidden="true">' +
+            renderStars(product.rating) +
+            "</span>" +
+            '<span class="font-mono text-sm text-z-muted">' +
+            product.rating +
+            " (" +
+            product.reviews.toLocaleString() +
+            " reviews)</span>" +
+            "</div>" +
+            // Price
+            '<div class="flex items-baseline gap-3 mt-5 flex-wrap">' +
+            '<span class="font-mono text-4xl text-[var(--c-accent-text)] font-medium">' +
+            window.formatPrice(product.price) +
+            "</span>" +
+            (product.oldPrice
+              ? '<span class="font-mono text-xl text-z-muted line-through">' +
+                window.formatPrice(product.oldPrice) +
+                "</span>"
+              : "") +
+            (pct > 0
+              ? '<span class="font-mono text-sm text-[var(--c-success)]">' +
+                pct +
+                "% OFF</span>"
+              : "") +
+            "</div>" +
+            '<div class="mt-3 inline-flex items-center gap-1.5 font-mono text-xs text-[var(--c-success)]">' +
+            '<i class="fa-solid fa-truck text-xs"></i>' +
+            "Free shipping on this order" +
+            "</div>" +
+            // Color swatches
+            swatchesHTML +
+            // Qty stepper
+            '<div class="mt-6">' +
+            '<p class="font-mono text-[10px] uppercase tracking-[0.14em] text-z-muted mb-3">Quantity</p>' +
+            '<div class="flex items-center gap-3">' +
+            '<button id="qty-dec" class="qty-btn" aria-label="Decrease quantity" disabled>&#8722;</button>' +
+            '<span id="qty-value" class="font-mono text-lg text-z-text w-8 text-center select-none">1</span>' +
+            '<button id="qty-inc" class="qty-btn" aria-label="Increase quantity">&#43;</button>' +
+            "</div>" +
+            "</div>" +
+            // CTAs
+            '<div class="flex flex-col sm:flex-row gap-3 mt-8">' +
+            '<button id="add-to-cart-main"' +
+            ' class="flex-1 flex items-center justify-center gap-2 bg-accent text-[#0A0A0A] font-body font-semibold py-3.5 px-6 rounded-xl hover:bg-yellow-300 transition-colors duration-200 cursor-pointer text-sm">' +
+            '<i class="fa-solid fa-cart-shopping"></i>' +
+            "Add to Cart" +
+            "</button>" +
+            '<button id="wishlist-main-btn"' +
+            ' class="wishlist-main-btn' +
+            (isWL ? " wishlisted" : "") +
+            ' flex items-center justify-center gap-2 border border-subtle text-z-text font-body font-medium py-3.5 px-5 rounded-xl hover:border-accent transition-colors duration-200 cursor-pointer text-sm"' +
+            ' aria-label="' +
+            (isWL ? "Remove from wishlist" : "Add to wishlist") +
+            '">' +
+            '<i class="' +
+            (isWL ? "fa-solid fa-heart text-accent" : "fa-regular fa-heart") +
+            '"></i>' +
+            (isWL ? "Wishlisted" : "Wishlist") +
+            "</button>" +
+            "</div>" +
+            // Compare link
+            '<a id="compare-link" href="compare.html?ids=' +
+            encodeURIComponent(product.id) +
+            '"' +
+            ' class="mt-4 inline-flex items-center gap-1.5 font-mono text-xs text-z-muted hover:text-[var(--c-accent-text)] transition-colors">' +
+            '<i class="fa-solid fa-scale-balanced"></i>' +
+            "Add to Compare" +
+            "</a>" +
+            // Specs accordion
+            '<details class="mt-8 border-t border-subtle pt-6 group">' +
+            '<summary class="flex items-center justify-between font-heading font-bold text-accent text-z-text cursor-pointer list-none">' +
+            "Specifications" +
+            '<i class="fa-solid fa-chevron-down text-z-muted transition-transform group-open:rotate-180"></i>' +
+            "</summary>" +
+            '<div class="mt-4">' +
+            specsHTML +
+            "</div>" +
+            "</details>" +
+            // Tabs
+            '<div class="mt-6 border-t border-subtle pt-6">' +
+            '<div class="flex gap-6 border-b border-subtle">' +
+            '<button class="tab-btn active" data-tab="description">Description</button>' +
+            '<button class="tab-btn text-z-muted" data-tab="reviews">Reviews (' +
+            product.reviews.toLocaleString() +
+            ")</button>" +
+            "</div>" +
+            '<div id="tab-description" class="mt-5 font-body text-sm text-z-muted leading-relaxed">' +
+            product.description +
+            "</div>" +
+            '<div id="tab-reviews" class="hidden mt-5 space-y-4">' +
+            reviewsHTML +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            "</div>";
+
+          // ── Related products ────────────────────────────────────────
+          var related = window.ZEVO_PRODUCTS.filter(function (p) {
+            return p.category === product.category && p.id !== product.id;
+          }).slice(0, 4);
+
+          if (related.length > 0) {
+            var relatedHTML =
+              '<section class="mt-16 border-t border-subtle pt-10 reveal">' +
+              '<p class="font-mono text-xs text-z-muted uppercase tracking-[0.12em] mb-2">More from ' +
+              product.categoryLabel +
+              "</p>" +
+              '<h2 class="font-heading font-black text-2xl text-z-text mb-6">You May Also Like</h2>' +
+              '<div id="related-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-4">' +
+              related
+                .map(function (p, i) {
+                  return window.buildProductCard(p, { delay: i + 1 });
+                })
+                .join("") +
+              "</div>" +
+              "</section>";
+            root.insertAdjacentHTML("beforeend", relatedHTML);
+          }
+
+          // ── Bind events ─────────────────────────────────────────────
+          bindEvents(product);
+        }
+
+        /* ─ Event bindings ────────────────────────────────────────────── */
+        function bindEvents(product) {
+          var qty = 1;
+          var selectedColor =
+            product.colors && product.colors.length > 0
+              ? product.colors[0]
+              : null;
+
+          /* Thumbnails */
+          root.querySelectorAll(".thumb").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              root.querySelectorAll(".thumb").forEach(function (t) {
+                t.classList.remove("active");
+              });
+              this.classList.add("active");
+              var img = document.getElementById("main-img-el");
+              img.style.opacity = "0";
+              setTimeout(function () {
+                img.src = btn.dataset.src;
+                img.style.opacity = "1";
+              }, 150);
+            });
+          });
+
+          /* Color swatches */
+          root.querySelectorAll(".color-swatch").forEach(function (sw) {
+            sw.addEventListener("click", function () {
+              root.querySelectorAll(".color-swatch").forEach(function (s) {
+                s.classList.remove("selected");
+              });
+              this.classList.add("selected");
+              selectedColor = this.dataset.color;
+            });
+          });
+
+          /* Qty stepper */
+          var qtyVal = document.getElementById("qty-value");
+          var qtyDec = document.getElementById("qty-dec");
+          var qtyInc = document.getElementById("qty-inc");
+
+          function updateQtyButtons() {
+            qtyDec.disabled = qty <= 1;
+            qtyInc.disabled = qty >= 10;
+            qtyVal.textContent = qty;
+          }
+          updateQtyButtons();
+
+          qtyDec.addEventListener("click", function () {
+            if (qty > 1) {
+              qty--;
+              updateQtyButtons();
+            }
+          });
+          qtyInc.addEventListener("click", function () {
+            if (qty < 10) {
+              qty++;
+              updateQtyButtons();
+            }
+          });
+
+          /* Add to cart */
+          document
+            .getElementById("add-to-cart-main")
+            .addEventListener("click", function () {
+              for (var i = 0; i < qty; i++) {
+                Store.addToCart(product.id, { color: selectedColor, qty: 1 });
+              }
+              const img = document.getElementById("main-img");
+              if (img) {
+                window.animateFlyToCart(img);
+              }
+              Toast.show({
+                title: "Added to cart",
+                message:
+                  product.name +
+                  (selectedColor ? " \u2014 " + selectedColor : ""),
+                type: "success",
+              });
+            });
+
+          /* Wishlist */
+          var wishBtn = document.getElementById("wishlist-main-btn");
+          wishBtn.addEventListener("click", function () {
+            var now = Store.toggleWishlist(product.id);
+            var icon = this.querySelector("i");
+            if (now) {
+              this.classList.add("wishlisted");
+              icon.className = "fa-solid fa-heart text-accent";
+              this.lastChild.textContent = "Wishlisted";
+              this.setAttribute("aria-label", "Remove from wishlist");
+            } else {
+              this.classList.remove("wishlisted");
+              icon.className = "fa-regular fa-heart";
+              this.lastChild.textContent = "Wishlist";
+              this.setAttribute("aria-label", "Add to wishlist");
+            }
+            Toast.show({
+              title: now ? "Added to wishlist" : "Removed from wishlist",
+              message: product.name,
+              type: now ? "success" : "info",
+            });
+          });
+
+          /* Tabs */
+          root.querySelectorAll(".tab-btn").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              root.querySelectorAll(".tab-btn").forEach(function (b) {
+                b.classList.remove("active");
+                b.classList.add("text-z-muted");
+              });
+              this.classList.add("active");
+              this.classList.remove("text-z-muted");
+
+              var tabId = this.dataset.tab;
+              document
+                .getElementById("tab-description")
+                .classList.add("hidden");
+              document.getElementById("tab-reviews").classList.add("hidden");
+              var target = document.getElementById("tab-" + tabId);
+              if (target) target.classList.remove("hidden");
+            });
+          });
+
+          /* Re-observe related cards for reveal */
+          setTimeout(function () {
+            document.querySelectorAll(".reveal").forEach(function (el) {
+              el.classList.add("revealed");
+            });
+          }, 100);
+        }
+
+        /* ─ Bootstrap ──────────────────────────────────────────────── */
+        document.addEventListener("DOMContentLoaded", function () {
+          var params = new URLSearchParams(window.location.search);
+          var id = params.get("id");
+
+          if (!id) {
+            render404();
+            return;
+          }
+
+          var product = window.getProduct(id);
+          if (!product) {
+            render404();
+            return;
+          }
+
+          renderProduct(product);
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compare Products | ZEVO — Built for What''s Next</title>
+  <meta name="description" content="Compare ZEVO products side by side. View specs, pricing, and ratings to find the perfect device for you.">
+  <script>(function(){var t=localStorage.getItem("zevo-theme");if(t==="light")document.documentElement.classList.remove("dark");else document.documentElement.classList.add("dark");})()</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            accent: "#FACC15", base: "#0A0A0A", surface: "#111111", elevated: "#1A1A1A",
+            success: "#22C55E", danger: "#EF4444", info: "#60A5FA",
+            "z-bg": "var(--c-bg)", "z-surface": "var(--c-surface)", "z-elevated": "var(--c-elevated)",
+            "z-text": "var(--c-text)", "z-muted": "var(--c-muted)",
+          },
+          fontFamily: { heading: ["Outfit","sans-serif"], body: ["Inter","sans-serif"], mono: ["JetBrains Mono","monospace"] },
+          maxWidth: { page: "1280px" }
+        }
+      }
+    }
+  </script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .border-subtle { border-color: var(--c-border); }
+    .compare-col-header { min-width: 200px; }
+    .compare-label-col { min-width: 160px; width: 160px; }
+  </style>
+</head>
+<body class="bg-z-bg text-z-text font-body antialiased">
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <div id="nav-placeholder"></div>
+  <main id="main-content">
+    <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-20">
+      <div class="reveal">
+        <p class="font-mono text-xs text-z-muted uppercase tracking-[0.12em] mb-2">Compare</p>
+        <h1 class="font-heading font-black text-3xl lg:text-4xl text-z-text mb-2">Compare Products</h1>
+        <p class="text-z-muted text-sm">Select up to 3 products to compare side by side</p>
+      </div>
+      <div id="add-product-bar" class="mt-6 flex flex-wrap gap-3 items-center reveal reveal-delay-1">
+        <span class="text-z-muted text-sm font-mono">Add a product:</span>
+        <div class="relative flex-1 min-w-[220px] max-w-xs">
+          <select id="product-select" class="form-input text-sm cursor-pointer"></select>
+        </div>
+        <button id="add-product-btn" class="bg-z-elevated border border-subtle text-z-text font-medium text-sm px-5 py-2.5 rounded-xl hover:border-accent transition-colors cursor-pointer">Add to Compare</button>
+      </div>
+      <div id="compare-empty" class="hidden text-center py-24">
+        <div class="w-16 h-16 rounded-2xl bg-z-elevated border border-subtle flex items-center justify-center mx-auto mb-6">
+          <i class="fa-solid fa-scale-balanced text-z-muted text-2xl"></i>
+        </div>
+        <p class="font-heading font-black text-2xl text-z-text mb-3">No products to compare</p>
+        <p class="text-z-muted text-sm mb-8 max-w-sm mx-auto">Browse the shop and add products to compare side by side.</p>
+        <a href="shop.html" class="bg-accent text-[#0A0A0A] font-semibold px-6 py-3 rounded-xl hover:bg-yellow-300 transition-colors cursor-pointer inline-block">Browse Shop</a>
+      </div>
+      <div id="compare-content" class="hidden mt-8">
+        <div class="overflow-x-auto rounded-2xl border border-subtle">
+          <table class="compare-table w-full" id="compare-table" style="min-width:560px;">
+            <thead>
+              <tr class="bg-z-surface">
+                <th class="compare-label-col bg-z-elevated px-5 py-5 text-left">
+                  <span class="font-mono text-xs uppercase tracking-[0.12em] text-z-muted">Specifications</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="compare-tbody"></tbody>
+          </table>
+        </div>
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button id="add-all-btn" class="bg-accent text-[#0A0A0A] font-semibold px-8 py-3.5 rounded-xl hover:bg-yellow-300 transition-colors cursor-pointer flex items-center gap-2">
+            <i class="fa-solid fa-cart-shopping text-sm"></i>
+            Add All to Cart
+          </button>
+          <a href="shop.html" class="border border-subtle text-z-text font-medium text-sm px-6 py-3.5 rounded-xl hover:border-accent transition-colors cursor-pointer">Continue Shopping</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none" aria-live="polite"></div>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/lenis.js"></script>
+    <script src="js/partials.js"></script>
+  
+  <!-- Comparision logic -->
+  <script src="js/meta/compare.js"></script>
+</body>
+</html>

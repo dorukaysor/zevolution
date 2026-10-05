@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout | ZEVO — Built for What's Next</title>
+    <meta
+      name="description"
+      content="Complete your ZEVO order — shipping, payment, and review."
+    />
+    <script>
+      (function () {
+        var t = localStorage.getItem("zevo-theme");
+        if (t === "light") document.documentElement.classList.remove("dark");
+        else document.documentElement.classList.add("dark");
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              accent: "#FACC15",
+              base: "#0A0A0A",
+              surface: "#111111",
+              elevated: "#1A1A1A",
+              success: "#22C55E",
+              danger: "#EF4444",
+              info: "#60A5FA",
+              "z-bg": "var(--c-bg)",
+              "z-surface": "var(--c-surface)",
+              "z-elevated": "var(--c-elevated)",
+              "z-text": "var(--c-text)",
+              "z-muted": "var(--c-muted)",
+            },
+            fontFamily: {
+              heading: ["Outfit", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            maxWidth: { page: "1280px" },
+          },
+        },
+      };
+    </script>
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/main.css" />
+    <style>
+      .border-subtle {
+        border-color: var(--c-border);
+      }
+      .step-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 14px;
+        font-weight: 500;
+        border: 2px solid var(--c-border);
+        background: var(--c-elevated);
+        color: var(--c-muted);
+        transition:
+          background 0.3s,
+          border-color 0.3s,
+          color 0.3s;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+      }
+      .step-circle.active {
+        background: #facc15;
+        border-color: #facc15;
+        color: #0a0a0a;
+        font-weight: 700;
+      }
+      .step-circle.done {
+        background: var(--c-success);
+        border-color: var(--c-success);
+        color: #fff;
+      }
+      .step-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--c-muted);
+        margin-top: 6px;
+        text-align: center;
+        transition: color 0.3s;
+      }
+      .step-label.active {
+        color: #facc15;
+      }
+      .step-label.done {
+        color: var(--c-success);
+      }
+      .step-line {
+        flex: 1;
+        height: 2px;
+        background: var(--c-elevated);
+        position: relative;
+        overflow: hidden;
+        margin-top: -18px;
+      }
+      .step-line-fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        background: #facc15;
+        width: 0%;
+        transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .step-line-fill.filled {
+        width: 100%;
+      }
+      .ghost-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 20px;
+        border-radius: 12px;
+        border: 1px solid var(--c-border);
+        color: var(--c-text);
+        font-family: "Inter", sans-serif;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+        background: transparent;
+      }
+      .ghost-btn:hover {
+        border-color: #facc15;
+        color: #facc15;
+      }
+      .primary-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 14px 24px;
+        border-radius: 12px;
+        background: #facc15;
+        color: #0a0a0a;
+        font-family: "Inter", sans-serif;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: background 0.2s;
+      }
+      .primary-btn:hover {
+        background: #fde047;
+      }
+      .section-heading {
+        font-family: "Outfit", sans-serif;
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: var(--c-text);
+      }
+      .review-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--c-muted);
+        margin-bottom: 4px;
+      }
+      .review-value {
+        font-family: "Inter", sans-serif;
+        font-size: 0.875rem;
+        color: var(--c-text);
+      }
+      /* Card number input font */
+      #card-number,
+      #card-expiry,
+      #card-cvv {
+        font-family: "JetBrains Mono", monospace;
+        letter-spacing: 0.04em;
+      }
+      /* Lock icon badge */
+      .lock-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--c-muted);
+      }
+    </style>
+  </head>
+  <body class="bg-z-bg text-z-text font-body antialiased">
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <div id="nav-placeholder"></div>
+
+    <main id="main-content">
+      <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <!-- ─── Step Indicator ─────────────────────────────── -->
+        <div class="max-w-md mx-auto mb-12">
+          <div class="flex items-start">
+            <!-- Step 1 -->
+            <div class="flex flex-col items-center">
+              <div class="step-circle active" id="s-circle-1">1</div>
+              <span class="step-label active" id="s-label-1">Shipping</span>
+            </div>
+
+            <!-- Connector 1-2 -->
+            <div class="step-line flex-1 mt-5 mx-1">
+              <div class="step-line-fill" id="s-fill-1"></div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex flex-col items-center">
+              <div class="step-circle" id="s-circle-2">2</div>
+              <span class="step-label" id="s-label-2">Payment</span>
+            </div>
+
+            <!-- Connector 2-3 -->
+            <div class="step-line flex-1 mt-5 mx-1">
+              <div class="step-line-fill" id="s-fill-2"></div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex flex-col items-center">
+              <div class="step-circle" id="s-circle-3">3</div>
+              <span class="step-label" id="s-label-3">Review</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── Main grid ──────────────────────────────────── -->
+        <div class="grid lg:grid-cols-[1fr_340px] gap-8 items-start">
+          <!-- LEFT: Steps -->
+          <div>
+            <!-- ══════════════════════════════════
+               STEP 1 — Shipping Information
+          ══════════════════════════════════ -->
+            <div id="step-1">
+              <p
+                class="font-mono text-xs text-z-muted uppercase tracking-[0.12em] mb-1"
+              >
+                Step 1 of 3
+              </p>
+              <h2 class="section-heading mb-6">Shipping Information</h2>
+
+              <form
+                id="shipping-form"
+                class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                novalidate
+              >
+                <div class="form-group">
+                  <label for="first-name">First Name</label>
+                  <input
+                    id="first-name"
+                    type="text"
+                    class="form-input"
+                    placeholder="John"
+                    required
+                    autocomplete="given-name"
+                  />
+                  <p class="form-error hidden" id="err-first-name">
+                    First name is required.
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label for="last-name">Last Name</label>
+                  <input
+                    id="last-name"
+                    type="text"
+                    class="form-input"
+                    placeholder="Doe"
+                    required
+                    autocomplete="family-name"
+                  />
+                  <p class="form-error hidden" id="err-last-name">
+                    Last name is required.
+                  </p>
+                </div>
+                <div class="form-group sm:col-span-2">
+                  <label for="email">Email Address</label>
+                  <input
+                    id="email"
+                    type="email"
+                    class="form-input"
+                    placeholder="johndoe@email.com"
+                    required
+                    autocomplete="email"
+                  />
+                  <p class="form-error hidden" id="err-email">
+                    A valid email is required.
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input
+                    id="phone"
+                    type="tel"
+                    class="form-input"
+                    placeholder="+91 12345 67890"
+                    required
+                    autocomplete="tel"
+                  />
+                  <p class="form-error hidden" id="err-phone">
+                    Phone number is required.
+                  </p>
+                </div>
+                <div class="form-group sm:col-span-2">
+                  <label for="address">Address</label>
+                  <input
+                    id="address"
+                    type="text"
+                    class="form-input"
+                    placeholder="Enter your address"
+                    required
+                    autocomplete="street-address"
+                  />
+                  <p class="form-error hidden" id="err-address">
+                    Address is required.
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input
+                    id="city"
+                    type="text"
+                    class="form-input"
+                    placeholder="Rourkela"
+                    required
+                    autocomplete="address-level2"
+                  />
+                  <p class="form-error hidden" id="err-city">
+                    City is required.
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label for="state">State</label>
+                  <input
+                    id="state"
+                    type="text"
+                    class="form-input"
+                    placeholder="Odisha"
+                    required
+                    autocomplete="address-level1"
+                  />
+                  <p class="form-error hidden" id="err-state">
+                    State is required.
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label for="zip">ZIP / Postal Code</label>
+                  <input
+                    id="zip"
+                    type="text"
+                    class="form-input"
+                    placeholder="752001"
+                    pattern="[0-9A-Za-z\s\-]{3,10}"
+                    required
+                    autocomplete="postal-code"
+                  />
+                  <p class="form-error hidden" id="err-zip">
+                    ZIP code is required.
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label for="country">Country</label>
+                  <select
+                    id="country"
+                    class="form-input"
+                    autocomplete="country-name"
+                  >
+                    <option value="IN">India</option>
+                    <option value="CA">Canada</option>
+                    <option value="GB">United Kingdom</option>
+                    <option value="AU">Australia</option>
+                    <option value="DE">Germany</option>
+                    <option value="FR">France</option>
+                    <option value="US">United States</option>
+                  </select>
+                </div>
+                <div class="sm:col-span-2 pt-2">
+                  <button type="submit" class="primary-btn">
+                    Continue to Payment
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- ══════════════════════════════════
+               STEP 2 — Payment Details
+          ══════════════════════════════════ -->
+            <div id="step-2" class="hidden">
+              <p
+                class="font-mono text-xs text-z-muted uppercase tracking-[0.12em] mb-1"
+              >
+                Step 2 of 3
+              </p>
+              <h2 class="section-heading mb-1">Payment Details</h2>
+              <div class="flex items-center gap-2 mb-6">
+                <span class="lock-badge">
+                  <i class="fa-solid fa-lock text-xs"></i>
+                  SSL Encrypted — UI only, no real processing
+                </span>
+              </div>
+
+              <!-- Card brand icons -->
+              <div class="flex gap-2 mb-5">
+                <div
+                  class="px-2 py-1 bg-z-elevated border border-subtle rounded-md"
+                >
+                  <span class="font-mono text-xs text-z-muted">VISA</span>
+                </div>
+                <div
+                  class="px-2 py-1 bg-z-elevated border border-subtle rounded-md"
+                >
+                  <span class="font-mono text-xs text-z-muted">MC</span>
+                </div>
+                <div
+                  class="px-2 py-1 bg-z-elevated border border-subtle rounded-md"
+                >
+                  <span class="font-mono text-xs text-z-muted">AMEX</span>
+                </div>
+              </div>
+
+              <form id="payment-form" class="grid gap-4" novalidate>
+                <div class="form-group">
+                  <label for="card-number">Card Number</label>
+                  <div class="relative">
+                    <input
+                      id="card-number"
+                      type="text"
+                      class="form-input pr-12"
+                      placeholder="1234 5678 9012 3456"
+                      maxlength="19"
+                      required
+                      autocomplete="cc-number"
+                      inputmode="numeric"
+                    />
+                    <i
+                      class="fa-regular fa-credit-card absolute right-3.5 top-1/2 -translate-y-1/2 text-z-muted"
+                    ></i>
+                  </div>
+                  <p class="form-error hidden" id="err-card-number">
+                    Please enter a valid 16-digit card number.
+                  </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="form-group">
+                    <label for="card-expiry">Expiry Date</label>
+                    <input
+                      id="card-expiry"
+                      type="text"
+                      class="form-input"
+                      placeholder="MM / YY"
+                      maxlength="7"
+                      required
+                      autocomplete="cc-exp"
+                      inputmode="numeric"
+                    />
+                    <p class="form-error hidden" id="err-card-expiry">
+                      Enter expiry as MM / YY.
+                    </p>
+                  </div>
+                  <div class="form-group">
+                    <label for="card-cvv">CVV</label>
+                    <div class="relative">
+                      <input
+                        id="card-cvv"
+                        type="text"
+                        class="form-input pr-10"
+                        placeholder="123"
+                        maxlength="4"
+                        required
+                        autocomplete="cc-csc"
+                        inputmode="numeric"
+                      />
+                      <i
+                        class="fa-regular fa-circle-question absolute right-3 top-1/2 -translate-y-1/2 text-z-muted text-xs"
+                      ></i>
+                    </div>
+                    <p class="form-error hidden" id="err-card-cvv">
+                      Enter 3-4 digit CVV.
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="card-name">Name on Card</label>
+                  <input
+                    id="card-name"
+                    type="text"
+                    class="form-input"
+                    placeholder="Alex Mercer"
+                    required
+                    autocomplete="cc-name"
+                  />
+                  <p class="form-error hidden" id="err-card-name">
+                    Name on card is required.
+                  </p>
+                </div>
+                <div class="flex gap-3 pt-2">
+                  <button type="button" id="back-to-step1" class="ghost-btn">
+                    <i class="fa-solid fa-arrow-left text-xs"></i>
+                    Back
+                  </button>
+                  <button type="submit" class="primary-btn flex-1">
+                    Review Order
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- ══════════════════════════════════
+               STEP 3 — Review Order
+          ══════════════════════════════════ -->
+            <div id="step-3" class="hidden">
+              <p
+                class="font-mono text-xs text-z-muted uppercase tracking-[0.12em] mb-1"
+              >
+                Step 3 of 3
+              </p>
+              <h2 class="section-heading mb-6">Review Your Order</h2>
+
+              <!-- Shipping summary -->
+              <div
+                id="review-shipping"
+                class="bg-z-surface border border-subtle rounded-2xl p-5 mb-4"
+              >
+                <div class="flex items-center justify-between mb-3">
+                  <p
+                    class="font-body font-semibold text-sm text-z-text flex items-center gap-2"
+                  >
+                    <i class="fa-solid fa-location-dot text-z-muted"></i>
+                    Shipping Address
+                  </p>
+                  <button
+                    id="edit-shipping"
+                    class="font-mono text-xs text-[var(--c-accent-text)] hover:underline cursor-pointer"
+                  >
+                    Edit
+                  </button>
+                </div>
+                <div
+                  id="review-shipping-content"
+                  class="grid grid-cols-2 gap-3 text-sm"
+                ></div>
+              </div>
+
+              <!-- Payment summary -->
+              <div
+                id="review-payment"
+                class="bg-z-surface border border-subtle rounded-2xl p-5 mb-4"
+              >
+                <div class="flex items-center justify-between mb-3">
+                  <p
+                    class="font-body font-semibold text-sm text-z-text flex items-center gap-2"
+                  >
+                    <i class="fa-regular fa-credit-card text-z-muted"></i>
+                    Payment Method
+                  </p>
+                  <button
+                    id="edit-payment"
+                    class="font-mono text-xs text-[var(--c-accent-text)] hover:underline cursor-pointer"
+                  >
+                    Edit
+                  </button>
+                </div>
+                <div id="review-payment-content" class="text-sm"></div>
+              </div>
+
+              <!-- Items summary -->
+              <div
+                class="bg-z-surface border border-subtle rounded-2xl p-5 mb-4"
+              >
+                <p
+                  class="font-body font-semibold text-sm text-z-text mb-3 flex items-center gap-2"
+                >
+                  <i class="fa-solid fa-bag-shopping text-z-muted"></i>
+                  Order Items
+                </p>
+                <div id="review-items" class="space-y-3"></div>
+              </div>
+
+              <!-- Place Order -->
+              <button id="place-order" class="primary-btn mt-2">
+                <i class="fa-regular fa-circle-check"></i>
+                Place Order
+              </button>
+              <p class="font-body text-xs text-z-muted text-center mt-3">
+                By placing your order you agree to our
+                <a href="#" class="text-[var(--c-accent-text)] hover:underline"
+                  >Terms of Service</a
+                >
+                and
+                <a href="#" class="text-[var(--c-accent-text)] hover:underline"
+                  >Privacy Policy</a
+                >.
+              </p>
+            </div>
+          </div>
+          <!-- end left -->
+
+          <!-- RIGHT: Order summary sidebar -->
+          <div
+            class="bg-z-surface border border-subtle rounded-2xl p-6 h-fit space-y-4 lg:sticky lg:top-20"
+          >
+            <h3 class="font-heading font-bold text-z-text">Order Summary</h3>
+
+            <!-- Items mini -->
+            <div
+              id="checkout-items"
+              class="space-y-3 max-h-64 overflow-y-auto scrollbar-hide"
+            ></div>
+
+            <!-- Totals -->
+            <div class="border-t border-subtle pt-4 space-y-2 text-sm">
+              <div class="flex justify-between text-z-muted font-body">
+                <span>Subtotal</span>
+                <span class="font-mono text-z-text" id="co-subtotal"
+                  >Rs. 0.00</span
+                >
+              </div>
+              <div class="flex justify-between text-z-muted font-body">
+                <span>Shipping</span>
+                <span class="font-mono" id="co-shipping">Free</span>
+              </div>
+              <div class="flex justify-between text-z-muted font-body">
+                <span>Tax (10%)</span>
+                <span class="font-mono text-z-text" id="co-tax">Rs. 0.00</span>
+              </div>
+              <div
+                class="flex justify-between font-heading font-bold text-z-text border-t border-subtle pt-2"
+              >
+                <span>Total</span>
+                <span
+                  class="font-mono text-[var(--c-accent-text)] text-lg"
+                  id="co-total"
+                  >Rs. 0.00</span
+                >
+              </div>
+            </div>
+
+            <!-- Trust note -->
+            <div class="flex items-center gap-2 pt-2 border-t border-subtle">
+              <i class="fa-solid fa-lock text-z-muted text-xs"></i>
+              <span
+                class="font-mono text-[10px] text-z-muted uppercase tracking-wider"
+                >256-bit SSL Encrypted Checkout</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <div
+      id="toast-container"
+      class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none"
+      aria-live="polite"
+    ></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/lenis.js"></script>
+    <script src="js/partials.js"></script>
+
+    <!-- Checkout logic -->
+    <script src="js/meta/checkout.js"></script>
+  </body>
+</html>
